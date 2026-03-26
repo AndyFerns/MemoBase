@@ -1,0 +1,427 @@
+<!doctype html><html lang=en data-bs-theme=dark> <head><title>Interfaces - MemoBase Documentation</title><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width, initial-scale=1.0"><meta name=author content="Andrew Fernandes"><link rel=stylesheet href=https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css><link rel=stylesheet href=../assets/css/darcula-highlight.min.css><link rel=stylesheet href=../assets/css/bootstrap.min.css><link rel=stylesheet href=../assets/css/dracula-ui.min.css><link rel=stylesheet href=../assets/css/mkdocs.min.css><link href=../stylesheets/extra.css rel=stylesheet><link rel=icon type=image/x-icon href=../assets/img/favicon.ico><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js></script><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/languages/python.min.js></script><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/languages/javascript.min.js></script><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/languages/yaml.min.js></script><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/languages/json.min.js></script><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/languages/bash.min.js></script><script>hljs.initHighlightingOnLoad();</script></head> <body class="drac-bg-black-secondary drac-text-grey-ternary drac-text drac-scrollbar-purple"> <main class=d-flex> <!-- block sidebar --> <nav id=sidebar class="sidebar drac-bg-black"> <div class=custom-menu> <button type=button id=sidebarCollapse class="btn btn-primary"> <i class="fa fa-bars"></i> <span class=sr-only>Menu</span> </button> </div> <div class=p-4> <div class=drac-text-center> <span class="drac-text drac-line-height drac-text-white">MemoBase Documentation</span> </div> <div class="drac-box flex-column"> <ul class=dot-ul> <li><div class="dot-li drac-bg-cyan"></div></li> <li><div class="dot-li drac-bg-green"></div></li> <li><div class="dot-li drac-bg-orange"></div></li> <li><div class="dot-li drac-bg-pink"></div></li> <li><div class="dot-li drac-bg-purple"></div></li> <li><div class="dot-li drac-bg-red"></div></li> <li><div class="dot-li drac-bg-yellow"></div></li> </ul> </div> <hr class=drac-divider> <!-- block menu --> <ul class="mb-5 drac-list drac-list-none"> <li class=drac-box> <a href=.. class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover"> Home </a> </li> <li class=drac-box> <a href=../architecture/ class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover"> Architecture </a> </li> <li class=drac-box> <a href=./ class=" active 
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover"> Interfaces </a> </li> <li class=drac-box> <a href=../data_models/ class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover"> Data Models </a> </li> <li class=drac-box> <a href=../cli_usage/ class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover"> CLI Usage </a> </li> <li class=drac-box> <a href=../tui_usage/ class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover"> TUI Usage </a> </li> <li class=drac-box> <a href=../performance/ class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover"> Performance </a> </li> <li class=drac-box> <a href=../testing/ class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover"> Testing </a> </li> <li class=drac-box> <a href=../contributing/ class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover"> Contributing </a> </li> </ul> <!-- endblock --> </div> </nav> <!-- endblock --> <nav class="divider drac-bg-purple-cyan"></nav> <div class=content> <!-- block header --> <header> <nav class="navbar navbar-expand-xl drac-bg-purple"> <div class=container-fluid> <button class="navbar-toggler w-100 text-center" type=button data-bs-toggle=collapse data-bs-target=#navbarsMenu aria-controls=navbarsMenu aria-expanded=false aria-label="Toggle navigation"> <span class=navbar-toggler-icon></span> </button> <div class="collapse navbar-collapse flex-column ml-auto" id=navbarsMenu> <ul class="navbar-nav text-md-center"> <!-- block preview --> <li class=nav-item> <div class=container> <div class="row row-preview"> <div class=col> <a href=../architecture/ class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover"> <i class="fa fa-arrow-left"></i> Previous </a> </div> <div class=col> <a href=../data_models/ class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover" style="padding-left: 3%;"> Next <i class="fa fa-arrow-right"></i> </a> </div> </div> </div> </li> <!--  endblock --> <!-- block search --> <li class=nav-item><div role=search class=search-box> <form id=rtd-search-form class=wy-form action=../search.html method=get> <input type=text name=q class="drac-input drac-input-search drac-input-white drac-text-white drac-bg-black-secondary" placeholder="Search docs" title="Type search term here"> </form> </div> </li> <!--  endblock --> <!-- block source --> <li class=nav-item> </li> <!--  endblock --> </ul> </div> </div> </nav> </header> <!-- endblock --> <!-- block content --> <section class="p-md-5 section-content"> <article> <p><h1 id=interfaces-documentation>Interfaces Documentation<a class=headerlink href=#interfaces-documentation title="Permanent link">&para;</a></h1> <p>Exact function contracts for all MemoBase modules.</p> <h2 id=core-interfaces>Core Interfaces<a class=headerlink href=#core-interfaces title="Permanent link">&para;</a></h2> <h3 id=parserinterface>ParserInterface<a class=headerlink href=#parserinterface title="Permanent link">&para;</a></h3> <div class=highlight><pre><span></span><code><a id=__codelineno-0-1 name=__codelineno-0-1 href=#__codelineno-0-1></a><span class=k>class</span> <span class=nc>ParserInterface</span><span class=p>:</span>
+<a id=__codelineno-0-2 name=__codelineno-0-2 href=#__codelineno-0-2></a>    <span class=k>def</span> <span class=nf>parse</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>file_path</span><span class=p>:</span> <span class=n>Path</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=n>ParsedFile</span><span class=p>:</span>
+<a id=__codelineno-0-3 name=__codelineno-0-3 href=#__codelineno-0-3></a><span class=w>        </span><span class=sd>&quot;&quot;&quot;Parse a single file.</span>
+<a id=__codelineno-0-4 name=__codelineno-0-4 href=#__codelineno-0-4></a>
+<a id=__codelineno-0-5 name=__codelineno-0-5 href=#__codelineno-0-5></a><span class=sd>        Args:</span>
+<a id=__codelineno-0-6 name=__codelineno-0-6 href=#__codelineno-0-6></a><span class=sd>            file_path: Path to file to parse</span>
+<a id=__codelineno-0-7 name=__codelineno-0-7 href=#__codelineno-0-7></a>
+<a id=__codelineno-0-8 name=__codelineno-0-8 href=#__codelineno-0-8></a><span class=sd>        Returns:</span>
+<a id=__codelineno-0-9 name=__codelineno-0-9 href=#__codelineno-0-9></a><span class=sd>            ParsedFile with AST and metadata</span>
+<a id=__codelineno-0-10 name=__codelineno-0-10 href=#__codelineno-0-10></a>
+<a id=__codelineno-0-11 name=__codelineno-0-11 href=#__codelineno-0-11></a><span class=sd>        Raises:</span>
+<a id=__codelineno-0-12 name=__codelineno-0-12 href=#__codelineno-0-12></a><span class=sd>            ParseError: If parsing fails</span>
+<a id=__codelineno-0-13 name=__codelineno-0-13 href=#__codelineno-0-13></a><span class=sd>        &quot;&quot;&quot;</span>
+<a id=__codelineno-0-14 name=__codelineno-0-14 href=#__codelineno-0-14></a>        <span class=k>pass</span>
+<a id=__codelineno-0-15 name=__codelineno-0-15 href=#__codelineno-0-15></a>
+<a id=__codelineno-0-16 name=__codelineno-0-16 href=#__codelineno-0-16></a>    <span class=k>def</span> <span class=nf>parse_batch</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>file_paths</span><span class=p>:</span> <span class=n>List</span><span class=p>[</span><span class=n>Path</span><span class=p>])</span> <span class=o>-&gt;</span> <span class=n>List</span><span class=p>[</span><span class=n>ParsedFile</span><span class=p>]:</span>
+<a id=__codelineno-0-17 name=__codelineno-0-17 href=#__codelineno-0-17></a><span class=w>        </span><span class=sd>&quot;&quot;&quot;Parse multiple files.</span>
+<a id=__codelineno-0-18 name=__codelineno-0-18 href=#__codelineno-0-18></a>
+<a id=__codelineno-0-19 name=__codelineno-0-19 href=#__codelineno-0-19></a><span class=sd>        Args:</span>
+<a id=__codelineno-0-20 name=__codelineno-0-20 href=#__codelineno-0-20></a><span class=sd>            file_paths: List of file paths</span>
+<a id=__codelineno-0-21 name=__codelineno-0-21 href=#__codelineno-0-21></a>
+<a id=__codelineno-0-22 name=__codelineno-0-22 href=#__codelineno-0-22></a><span class=sd>        Returns:</span>
+<a id=__codelineno-0-23 name=__codelineno-0-23 href=#__codelineno-0-23></a><span class=sd>            List of ParsedFile objects</span>
+<a id=__codelineno-0-24 name=__codelineno-0-24 href=#__codelineno-0-24></a><span class=sd>        &quot;&quot;&quot;</span>
+<a id=__codelineno-0-25 name=__codelineno-0-25 href=#__codelineno-0-25></a>        <span class=k>pass</span>
+<a id=__codelineno-0-26 name=__codelineno-0-26 href=#__codelineno-0-26></a>
+<a id=__codelineno-0-27 name=__codelineno-0-27 href=#__codelineno-0-27></a>    <span class=k>def</span> <span class=nf>parse_async</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>file_path</span><span class=p>:</span> <span class=n>Path</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=n>asyncio</span><span class=o>.</span><span class=n>Future</span><span class=p>[</span><span class=n>ParsedFile</span><span class=p>]:</span>
+<a id=__codelineno-0-28 name=__codelineno-0-28 href=#__codelineno-0-28></a><span class=w>        </span><span class=sd>&quot;&quot;&quot;Parse file asynchronously.</span>
+<a id=__codelineno-0-29 name=__codelineno-0-29 href=#__codelineno-0-29></a>
+<a id=__codelineno-0-30 name=__codelineno-0-30 href=#__codelineno-0-30></a><span class=sd>        Args:</span>
+<a id=__codelineno-0-31 name=__codelineno-0-31 href=#__codelineno-0-31></a><span class=sd>            file_path: Path to file</span>
+<a id=__codelineno-0-32 name=__codelineno-0-32 href=#__codelineno-0-32></a>
+<a id=__codelineno-0-33 name=__codelineno-0-33 href=#__codelineno-0-33></a><span class=sd>        Returns:</span>
+<a id=__codelineno-0-34 name=__codelineno-0-34 href=#__codelineno-0-34></a><span class=sd>            Future resolving to ParsedFile</span>
+<a id=__codelineno-0-35 name=__codelineno-0-35 href=#__codelineno-0-35></a><span class=sd>        &quot;&quot;&quot;</span>
+<a id=__codelineno-0-36 name=__codelineno-0-36 href=#__codelineno-0-36></a>        <span class=k>pass</span>
+</code></pre></div> <h3 id=memorybuilderinterface>MemoryBuilderInterface<a class=headerlink href=#memorybuilderinterface title="Permanent link">&para;</a></h3> <div class=highlight><pre><span></span><code><a id=__codelineno-1-1 name=__codelineno-1-1 href=#__codelineno-1-1></a><span class=k>class</span> <span class=nc>MemoryBuilderInterface</span><span class=p>:</span>
+<a id=__codelineno-1-2 name=__codelineno-1-2 href=#__codelineno-1-2></a>    <span class=k>def</span> <span class=nf>build</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>parsed_file</span><span class=p>:</span> <span class=n>ParsedFile</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=n>List</span><span class=p>[</span><span class=n>MemoryUnit</span><span class=p>]:</span>
+<a id=__codelineno-1-3 name=__codelineno-1-3 href=#__codelineno-1-3></a><span class=w>        </span><span class=sd>&quot;&quot;&quot;Build memory units from parsed file.</span>
+<a id=__codelineno-1-4 name=__codelineno-1-4 href=#__codelineno-1-4></a>
+<a id=__codelineno-1-5 name=__codelineno-1-5 href=#__codelineno-1-5></a><span class=sd>        Args:</span>
+<a id=__codelineno-1-6 name=__codelineno-1-6 href=#__codelineno-1-6></a><span class=sd>            parsed_file: Parsed file data</span>
+<a id=__codelineno-1-7 name=__codelineno-1-7 href=#__codelineno-1-7></a>
+<a id=__codelineno-1-8 name=__codelineno-1-8 href=#__codelineno-1-8></a><span class=sd>        Returns:</span>
+<a id=__codelineno-1-9 name=__codelineno-1-9 href=#__codelineno-1-9></a><span class=sd>            List of MemoryUnit objects</span>
+<a id=__codelineno-1-10 name=__codelineno-1-10 href=#__codelineno-1-10></a><span class=sd>        &quot;&quot;&quot;</span>
+<a id=__codelineno-1-11 name=__codelineno-1-11 href=#__codelineno-1-11></a>        <span class=k>pass</span>
+<a id=__codelineno-1-12 name=__codelineno-1-12 href=#__codelineno-1-12></a>
+<a id=__codelineno-1-13 name=__codelineno-1-13 href=#__codelineno-1-13></a>    <span class=k>def</span> <span class=nf>build_batch</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>parsed_files</span><span class=p>:</span> <span class=n>List</span><span class=p>[</span><span class=n>ParsedFile</span><span class=p>])</span> <span class=o>-&gt;</span> <span class=n>List</span><span class=p>[</span><span class=n>MemoryUnit</span><span class=p>]:</span>
+<a id=__codelineno-1-14 name=__codelineno-1-14 href=#__codelineno-1-14></a><span class=w>        </span><span class=sd>&quot;&quot;&quot;Build memory units from multiple files.</span>
+<a id=__codelineno-1-15 name=__codelineno-1-15 href=#__codelineno-1-15></a>
+<a id=__codelineno-1-16 name=__codelineno-1-16 href=#__codelineno-1-16></a><span class=sd>        Args:</span>
+<a id=__codelineno-1-17 name=__codelineno-1-17 href=#__codelineno-1-17></a><span class=sd>            parsed_files: List of parsed files</span>
+<a id=__codelineno-1-18 name=__codelineno-1-18 href=#__codelineno-1-18></a>
+<a id=__codelineno-1-19 name=__codelineno-1-19 href=#__codelineno-1-19></a><span class=sd>        Returns:</span>
+<a id=__codelineno-1-20 name=__codelineno-1-20 href=#__codelineno-1-20></a><span class=sd>            List of MemoryUnit objects</span>
+<a id=__codelineno-1-21 name=__codelineno-1-21 href=#__codelineno-1-21></a><span class=sd>        &quot;&quot;&quot;</span>
+<a id=__codelineno-1-22 name=__codelineno-1-22 href=#__codelineno-1-22></a>        <span class=k>pass</span>
+<a id=__codelineno-1-23 name=__codelineno-1-23 href=#__codelineno-1-23></a>
+<a id=__codelineno-1-24 name=__codelineno-1-24 href=#__codelineno-1-24></a>    <span class=k>def</span> <span class=nf>build_async</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>parsed_file</span><span class=p>:</span> <span class=n>ParsedFile</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=n>asyncio</span><span class=o>.</span><span class=n>Future</span><span class=p>[</span><span class=n>List</span><span class=p>[</span><span class=n>MemoryUnit</span><span class=p>]]:</span>
+<a id=__codelineno-1-25 name=__codelineno-1-25 href=#__codelineno-1-25></a><span class=w>        </span><span class=sd>&quot;&quot;&quot;Build memory units asynchronously.</span>
+<a id=__codelineno-1-26 name=__codelineno-1-26 href=#__codelineno-1-26></a>
+<a id=__codelineno-1-27 name=__codelineno-1-27 href=#__codelineno-1-27></a><span class=sd>        Args:</span>
+<a id=__codelineno-1-28 name=__codelineno-1-28 href=#__codelineno-1-28></a><span class=sd>            parsed_file: Parsed file data</span>
+<a id=__codelineno-1-29 name=__codelineno-1-29 href=#__codelineno-1-29></a>
+<a id=__codelineno-1-30 name=__codelineno-1-30 href=#__codelineno-1-30></a><span class=sd>        Returns:</span>
+<a id=__codelineno-1-31 name=__codelineno-1-31 href=#__codelineno-1-31></a><span class=sd>            Future resolving to list of MemoryUnits</span>
+<a id=__codelineno-1-32 name=__codelineno-1-32 href=#__codelineno-1-32></a><span class=sd>        &quot;&quot;&quot;</span>
+<a id=__codelineno-1-33 name=__codelineno-1-33 href=#__codelineno-1-33></a>        <span class=k>pass</span>
+<a id=__codelineno-1-34 name=__codelineno-1-34 href=#__codelineno-1-34></a>
+<a id=__codelineno-1-35 name=__codelineno-1-35 href=#__codelineno-1-35></a>    <span class=k>def</span> <span class=nf>extract_relationships</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>memory_units</span><span class=p>:</span> <span class=n>List</span><span class=p>[</span><span class=n>MemoryUnit</span><span class=p>])</span> <span class=o>-&gt;</span> <span class=n>List</span><span class=p>[</span><span class=n>Relationship</span><span class=p>]:</span>
+<a id=__codelineno-1-36 name=__codelineno-1-36 href=#__codelineno-1-36></a><span class=w>        </span><span class=sd>&quot;&quot;&quot;Extract relationships between memory units.</span>
+<a id=__codelineno-1-37 name=__codelineno-1-37 href=#__codelineno-1-37></a>
+<a id=__codelineno-1-38 name=__codelineno-1-38 href=#__codelineno-1-38></a><span class=sd>        Args:</span>
+<a id=__codelineno-1-39 name=__codelineno-1-39 href=#__codelineno-1-39></a><span class=sd>            memory_units: List of memory units</span>
+<a id=__codelineno-1-40 name=__codelineno-1-40 href=#__codelineno-1-40></a>
+<a id=__codelineno-1-41 name=__codelineno-1-41 href=#__codelineno-1-41></a><span class=sd>        Returns:</span>
+<a id=__codelineno-1-42 name=__codelineno-1-42 href=#__codelineno-1-42></a><span class=sd>            List of Relationship objects</span>
+<a id=__codelineno-1-43 name=__codelineno-1-43 href=#__codelineno-1-43></a><span class=sd>        &quot;&quot;&quot;</span>
+<a id=__codelineno-1-44 name=__codelineno-1-44 href=#__codelineno-1-44></a>        <span class=k>pass</span>
+</code></pre></div> <h3 id=storageinterface>StorageInterface<a class=headerlink href=#storageinterface title="Permanent link">&para;</a></h3> <div class=highlight><pre><span></span><code><a id=__codelineno-2-1 name=__codelineno-2-1 href=#__codelineno-2-1></a><span class=k>class</span> <span class=nc>StorageInterface</span><span class=p>:</span>
+<a id=__codelineno-2-2 name=__codelineno-2-2 href=#__codelineno-2-2></a>    <span class=k>def</span> <span class=nf>store</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>data</span><span class=p>:</span> <span class=n>Any</span><span class=p>,</span> <span class=n>key</span><span class=p>:</span> <span class=nb>str</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kc>None</span><span class=p>:</span>
+<a id=__codelineno-2-3 name=__codelineno-2-3 href=#__codelineno-2-3></a><span class=w>        </span><span class=sd>&quot;&quot;&quot;Store data with key.</span>
+<a id=__codelineno-2-4 name=__codelineno-2-4 href=#__codelineno-2-4></a>
+<a id=__codelineno-2-5 name=__codelineno-2-5 href=#__codelineno-2-5></a><span class=sd>        Args:</span>
+<a id=__codelineno-2-6 name=__codelineno-2-6 href=#__codelineno-2-6></a><span class=sd>            data: Data to store</span>
+<a id=__codelineno-2-7 name=__codelineno-2-7 href=#__codelineno-2-7></a><span class=sd>            key: Storage key</span>
+<a id=__codelineno-2-8 name=__codelineno-2-8 href=#__codelineno-2-8></a><span class=sd>        &quot;&quot;&quot;</span>
+<a id=__codelineno-2-9 name=__codelineno-2-9 href=#__codelineno-2-9></a>        <span class=k>pass</span>
+<a id=__codelineno-2-10 name=__codelineno-2-10 href=#__codelineno-2-10></a>
+<a id=__codelineno-2-11 name=__codelineno-2-11 href=#__codelineno-2-11></a>    <span class=k>def</span> <span class=nf>load</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>key</span><span class=p>:</span> <span class=nb>str</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=n>Any</span><span class=p>:</span>
+<a id=__codelineno-2-12 name=__codelineno-2-12 href=#__codelineno-2-12></a><span class=w>        </span><span class=sd>&quot;&quot;&quot;Load data by key.</span>
+<a id=__codelineno-2-13 name=__codelineno-2-13 href=#__codelineno-2-13></a>
+<a id=__codelineno-2-14 name=__codelineno-2-14 href=#__codelineno-2-14></a><span class=sd>        Args:</span>
+<a id=__codelineno-2-15 name=__codelineno-2-15 href=#__codelineno-2-15></a><span class=sd>            key: Storage key</span>
+<a id=__codelineno-2-16 name=__codelineno-2-16 href=#__codelineno-2-16></a>
+<a id=__codelineno-2-17 name=__codelineno-2-17 href=#__codelineno-2-17></a><span class=sd>        Returns:</span>
+<a id=__codelineno-2-18 name=__codelineno-2-18 href=#__codelineno-2-18></a><span class=sd>            Stored data or None</span>
+<a id=__codelineno-2-19 name=__codelineno-2-19 href=#__codelineno-2-19></a><span class=sd>        &quot;&quot;&quot;</span>
+<a id=__codelineno-2-20 name=__codelineno-2-20 href=#__codelineno-2-20></a>        <span class=k>pass</span>
+<a id=__codelineno-2-21 name=__codelineno-2-21 href=#__codelineno-2-21></a>
+<a id=__codelineno-2-22 name=__codelineno-2-22 href=#__codelineno-2-22></a>    <span class=k>def</span> <span class=nf>exists</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>key</span><span class=p>:</span> <span class=nb>str</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=nb>bool</span><span class=p>:</span>
+<a id=__codelineno-2-23 name=__codelineno-2-23 href=#__codelineno-2-23></a><span class=w>        </span><span class=sd>&quot;&quot;&quot;Check if key exists.</span>
+<a id=__codelineno-2-24 name=__codelineno-2-24 href=#__codelineno-2-24></a>
+<a id=__codelineno-2-25 name=__codelineno-2-25 href=#__codelineno-2-25></a><span class=sd>        Args:</span>
+<a id=__codelineno-2-26 name=__codelineno-2-26 href=#__codelineno-2-26></a><span class=sd>            key: Storage key</span>
+<a id=__codelineno-2-27 name=__codelineno-2-27 href=#__codelineno-2-27></a>
+<a id=__codelineno-2-28 name=__codelineno-2-28 href=#__codelineno-2-28></a><span class=sd>        Returns:</span>
+<a id=__codelineno-2-29 name=__codelineno-2-29 href=#__codelineno-2-29></a><span class=sd>            True if key exists</span>
+<a id=__codelineno-2-30 name=__codelineno-2-30 href=#__codelineno-2-30></a><span class=sd>        &quot;&quot;&quot;</span>
+<a id=__codelineno-2-31 name=__codelineno-2-31 href=#__codelineno-2-31></a>        <span class=k>pass</span>
+<a id=__codelineno-2-32 name=__codelineno-2-32 href=#__codelineno-2-32></a>
+<a id=__codelineno-2-33 name=__codelineno-2-33 href=#__codelineno-2-33></a>    <span class=k>def</span> <span class=nf>delete</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>key</span><span class=p>:</span> <span class=nb>str</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kc>None</span><span class=p>:</span>
+<a id=__codelineno-2-34 name=__codelineno-2-34 href=#__codelineno-2-34></a><span class=w>        </span><span class=sd>&quot;&quot;&quot;Delete data by key.</span>
+<a id=__codelineno-2-35 name=__codelineno-2-35 href=#__codelineno-2-35></a>
+<a id=__codelineno-2-36 name=__codelineno-2-36 href=#__codelineno-2-36></a><span class=sd>        Args:</span>
+<a id=__codelineno-2-37 name=__codelineno-2-37 href=#__codelineno-2-37></a><span class=sd>            key: Storage key</span>
+<a id=__codelineno-2-38 name=__codelineno-2-38 href=#__codelineno-2-38></a><span class=sd>        &quot;&quot;&quot;</span>
+<a id=__codelineno-2-39 name=__codelineno-2-39 href=#__codelineno-2-39></a>        <span class=k>pass</span>
+<a id=__codelineno-2-40 name=__codelineno-2-40 href=#__codelineno-2-40></a>
+<a id=__codelineno-2-41 name=__codelineno-2-41 href=#__codelineno-2-41></a>    <span class=k>def</span> <span class=nf>list_keys</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>prefix</span><span class=p>:</span> <span class=nb>str</span> <span class=o>=</span> <span class=s2>&quot;&quot;</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=n>List</span><span class=p>[</span><span class=nb>str</span><span class=p>]:</span>
+<a id=__codelineno-2-42 name=__codelineno-2-42 href=#__codelineno-2-42></a><span class=w>        </span><span class=sd>&quot;&quot;&quot;List keys with optional prefix.</span>
+<a id=__codelineno-2-43 name=__codelineno-2-43 href=#__codelineno-2-43></a>
+<a id=__codelineno-2-44 name=__codelineno-2-44 href=#__codelineno-2-44></a><span class=sd>        Args:</span>
+<a id=__codelineno-2-45 name=__codelineno-2-45 href=#__codelineno-2-45></a><span class=sd>            prefix: Key prefix filter</span>
+<a id=__codelineno-2-46 name=__codelineno-2-46 href=#__codelineno-2-46></a>
+<a id=__codelineno-2-47 name=__codelineno-2-47 href=#__codelineno-2-47></a><span class=sd>        Returns:</span>
+<a id=__codelineno-2-48 name=__codelineno-2-48 href=#__codelineno-2-48></a><span class=sd>            List of keys</span>
+<a id=__codelineno-2-49 name=__codelineno-2-49 href=#__codelineno-2-49></a><span class=sd>        &quot;&quot;&quot;</span>
+<a id=__codelineno-2-50 name=__codelineno-2-50 href=#__codelineno-2-50></a>        <span class=k>pass</span>
+</code></pre></div> <h3 id=indexinterface>IndexInterface<a class=headerlink href=#indexinterface title="Permanent link">&para;</a></h3> <div class=highlight><pre><span></span><code><a id=__codelineno-3-1 name=__codelineno-3-1 href=#__codelineno-3-1></a><span class=k>class</span> <span class=nc>IndexInterface</span><span class=p>:</span>
+<a id=__codelineno-3-2 name=__codelineno-3-2 href=#__codelineno-3-2></a>    <span class=k>def</span> <span class=nf>index</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>memory_units</span><span class=p>:</span> <span class=n>List</span><span class=p>[</span><span class=n>MemoryUnit</span><span class=p>])</span> <span class=o>-&gt;</span> <span class=n>Index</span><span class=p>:</span>
+<a id=__codelineno-3-3 name=__codelineno-3-3 href=#__codelineno-3-3></a><span class=w>        </span><span class=sd>&quot;&quot;&quot;Create index from memory units.</span>
+<a id=__codelineno-3-4 name=__codelineno-3-4 href=#__codelineno-3-4></a>
+<a id=__codelineno-3-5 name=__codelineno-3-5 href=#__codelineno-3-5></a><span class=sd>        Args:</span>
+<a id=__codelineno-3-6 name=__codelineno-3-6 href=#__codelineno-3-6></a><span class=sd>            memory_units: List of memory units</span>
+<a id=__codelineno-3-7 name=__codelineno-3-7 href=#__codelineno-3-7></a>
+<a id=__codelineno-3-8 name=__codelineno-3-8 href=#__codelineno-3-8></a><span class=sd>        Returns:</span>
+<a id=__codelineno-3-9 name=__codelineno-3-9 href=#__codelineno-3-9></a><span class=sd>            Index object</span>
+<a id=__codelineno-3-10 name=__codelineno-3-10 href=#__codelineno-3-10></a><span class=sd>        &quot;&quot;&quot;</span>
+<a id=__codelineno-3-11 name=__codelineno-3-11 href=#__codelineno-3-11></a>        <span class=k>pass</span>
+<a id=__codelineno-3-12 name=__codelineno-3-12 href=#__codelineno-3-12></a>
+<a id=__codelineno-3-13 name=__codelineno-3-13 href=#__codelineno-3-13></a>    <span class=k>def</span> <span class=nf>update_index</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>index</span><span class=p>:</span> <span class=n>Index</span><span class=p>,</span> <span class=n>memory_units</span><span class=p>:</span> <span class=n>List</span><span class=p>[</span><span class=n>MemoryUnit</span><span class=p>])</span> <span class=o>-&gt;</span> <span class=n>Index</span><span class=p>:</span>
+<a id=__codelineno-3-14 name=__codelineno-3-14 href=#__codelineno-3-14></a><span class=w>        </span><span class=sd>&quot;&quot;&quot;Update existing index.</span>
+<a id=__codelineno-3-15 name=__codelineno-3-15 href=#__codelineno-3-15></a>
+<a id=__codelineno-3-16 name=__codelineno-3-16 href=#__codelineno-3-16></a><span class=sd>        Args:</span>
+<a id=__codelineno-3-17 name=__codelineno-3-17 href=#__codelineno-3-17></a><span class=sd>            index: Existing index</span>
+<a id=__codelineno-3-18 name=__codelineno-3-18 href=#__codelineno-3-18></a><span class=sd>            memory_units: New memory units</span>
+<a id=__codelineno-3-19 name=__codelineno-3-19 href=#__codelineno-3-19></a>
+<a id=__codelineno-3-20 name=__codelineno-3-20 href=#__codelineno-3-20></a><span class=sd>        Returns:</span>
+<a id=__codelineno-3-21 name=__codelineno-3-21 href=#__codelineno-3-21></a><span class=sd>            Updated index</span>
+<a id=__codelineno-3-22 name=__codelineno-3-22 href=#__codelineno-3-22></a><span class=sd>        &quot;&quot;&quot;</span>
+<a id=__codelineno-3-23 name=__codelineno-3-23 href=#__codelineno-3-23></a>        <span class=k>pass</span>
+<a id=__codelineno-3-24 name=__codelineno-3-24 href=#__codelineno-3-24></a>
+<a id=__codelineno-3-25 name=__codelineno-3-25 href=#__codelineno-3-25></a>    <span class=k>def</span> <span class=nf>search</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>index</span><span class=p>:</span> <span class=n>Index</span><span class=p>,</span> <span class=n>query</span><span class=p>:</span> <span class=nb>str</span><span class=p>,</span> <span class=n>limit</span><span class=p>:</span> <span class=nb>int</span> <span class=o>=</span> <span class=mi>10</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=n>List</span><span class=p>[</span><span class=nb>str</span><span class=p>]:</span>
+<a id=__codelineno-3-26 name=__codelineno-3-26 href=#__codelineno-3-26></a><span class=w>        </span><span class=sd>&quot;&quot;&quot;Search index for matching unit IDs.</span>
+<a id=__codelineno-3-27 name=__codelineno-3-27 href=#__codelineno-3-27></a>
+<a id=__codelineno-3-28 name=__codelineno-3-28 href=#__codelineno-3-28></a><span class=sd>        Args:</span>
+<a id=__codelineno-3-29 name=__codelineno-3-29 href=#__codelineno-3-29></a><span class=sd>            index: Index to search</span>
+<a id=__codelineno-3-30 name=__codelineno-3-30 href=#__codelineno-3-30></a><span class=sd>            query: Search query</span>
+<a id=__codelineno-3-31 name=__codelineno-3-31 href=#__codelineno-3-31></a><span class=sd>            limit: Maximum results</span>
+<a id=__codelineno-3-32 name=__codelineno-3-32 href=#__codelineno-3-32></a>
+<a id=__codelineno-3-33 name=__codelineno-3-33 href=#__codelineno-3-33></a><span class=sd>        Returns:</span>
+<a id=__codelineno-3-34 name=__codelineno-3-34 href=#__codelineno-3-34></a><span class=sd>            List of MemoryUnit IDs</span>
+<a id=__codelineno-3-35 name=__codelineno-3-35 href=#__codelineno-3-35></a><span class=sd>        &quot;&quot;&quot;</span>
+<a id=__codelineno-3-36 name=__codelineno-3-36 href=#__codelineno-3-36></a>        <span class=k>pass</span>
+<a id=__codelineno-3-37 name=__codelineno-3-37 href=#__codelineno-3-37></a>
+<a id=__codelineno-3-38 name=__codelineno-3-38 href=#__codelineno-3-38></a>    <span class=k>def</span> <span class=nf>get_term_frequency</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>index</span><span class=p>:</span> <span class=n>Index</span><span class=p>,</span> <span class=n>term</span><span class=p>:</span> <span class=nb>str</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=n>Dict</span><span class=p>[</span><span class=nb>str</span><span class=p>,</span> <span class=nb>int</span><span class=p>]:</span>
+<a id=__codelineno-3-39 name=__codelineno-3-39 href=#__codelineno-3-39></a><span class=w>        </span><span class=sd>&quot;&quot;&quot;Get term frequency across documents.</span>
+<a id=__codelineno-3-40 name=__codelineno-3-40 href=#__codelineno-3-40></a>
+<a id=__codelineno-3-41 name=__codelineno-3-41 href=#__codelineno-3-41></a><span class=sd>        Args:</span>
+<a id=__codelineno-3-42 name=__codelineno-3-42 href=#__codelineno-3-42></a><span class=sd>            index: Index to query</span>
+<a id=__codelineno-3-43 name=__codelineno-3-43 href=#__codelineno-3-43></a><span class=sd>            term: Term to check</span>
+<a id=__codelineno-3-44 name=__codelineno-3-44 href=#__codelineno-3-44></a>
+<a id=__codelineno-3-45 name=__codelineno-3-45 href=#__codelineno-3-45></a><span class=sd>        Returns:</span>
+<a id=__codelineno-3-46 name=__codelineno-3-46 href=#__codelineno-3-46></a><span class=sd>            Dictionary mapping unit_id to frequency</span>
+<a id=__codelineno-3-47 name=__codelineno-3-47 href=#__codelineno-3-47></a><span class=sd>        &quot;&quot;&quot;</span>
+<a id=__codelineno-3-48 name=__codelineno-3-48 href=#__codelineno-3-48></a>        <span class=k>pass</span>
+</code></pre></div> <h3 id=graphinterface>GraphInterface<a class=headerlink href=#graphinterface title="Permanent link">&para;</a></h3> <div class=highlight><pre><span></span><code><a id=__codelineno-4-1 name=__codelineno-4-1 href=#__codelineno-4-1></a><span class=k>class</span> <span class=nc>GraphInterface</span><span class=p>:</span>
+<a id=__codelineno-4-2 name=__codelineno-4-2 href=#__codelineno-4-2></a>    <span class=k>def</span> <span class=nf>build_graph</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>memory_units</span><span class=p>:</span> <span class=n>List</span><span class=p>[</span><span class=n>MemoryUnit</span><span class=p>],</span> <span class=n>relationships</span><span class=p>:</span> <span class=n>List</span><span class=p>[</span><span class=n>Relationship</span><span class=p>])</span> <span class=o>-&gt;</span> <span class=n>Graph</span><span class=p>:</span>
+<a id=__codelineno-4-3 name=__codelineno-4-3 href=#__codelineno-4-3></a><span class=w>        </span><span class=sd>&quot;&quot;&quot;Build relationship graph.</span>
+<a id=__codelineno-4-4 name=__codelineno-4-4 href=#__codelineno-4-4></a>
+<a id=__codelineno-4-5 name=__codelineno-4-5 href=#__codelineno-4-5></a><span class=sd>        Args:</span>
+<a id=__codelineno-4-6 name=__codelineno-4-6 href=#__codelineno-4-6></a><span class=sd>            memory_units: List of memory units</span>
+<a id=__codelineno-4-7 name=__codelineno-4-7 href=#__codelineno-4-7></a><span class=sd>            relationships: List of relationships</span>
+<a id=__codelineno-4-8 name=__codelineno-4-8 href=#__codelineno-4-8></a>
+<a id=__codelineno-4-9 name=__codelineno-4-9 href=#__codelineno-4-9></a><span class=sd>        Returns:</span>
+<a id=__codelineno-4-10 name=__codelineno-4-10 href=#__codelineno-4-10></a><span class=sd>            Graph object</span>
+<a id=__codelineno-4-11 name=__codelineno-4-11 href=#__codelineno-4-11></a><span class=sd>        &quot;&quot;&quot;</span>
+<a id=__codelineno-4-12 name=__codelineno-4-12 href=#__codelineno-4-12></a>        <span class=k>pass</span>
+<a id=__codelineno-4-13 name=__codelineno-4-13 href=#__codelineno-4-13></a>
+<a id=__codelineno-4-14 name=__codelineno-4-14 href=#__codelineno-4-14></a>    <span class=k>def</span> <span class=nf>update_graph</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>graph</span><span class=p>:</span> <span class=n>Graph</span><span class=p>,</span> <span class=n>memory_units</span><span class=p>:</span> <span class=n>List</span><span class=p>[</span><span class=n>MemoryUnit</span><span class=p>],</span> <span class=n>relationships</span><span class=p>:</span> <span class=n>List</span><span class=p>[</span><span class=n>Relationship</span><span class=p>])</span> <span class=o>-&gt;</span> <span class=n>Graph</span><span class=p>:</span>
+<a id=__codelineno-4-15 name=__codelineno-4-15 href=#__codelineno-4-15></a><span class=w>        </span><span class=sd>&quot;&quot;&quot;Update existing graph.</span>
+<a id=__codelineno-4-16 name=__codelineno-4-16 href=#__codelineno-4-16></a>
+<a id=__codelineno-4-17 name=__codelineno-4-17 href=#__codelineno-4-17></a><span class=sd>        Args:</span>
+<a id=__codelineno-4-18 name=__codelineno-4-18 href=#__codelineno-4-18></a><span class=sd>            graph: Existing graph</span>
+<a id=__codelineno-4-19 name=__codelineno-4-19 href=#__codelineno-4-19></a><span class=sd>            memory_units: New memory units</span>
+<a id=__codelineno-4-20 name=__codelineno-4-20 href=#__codelineno-4-20></a><span class=sd>            relationships: New relationships</span>
+<a id=__codelineno-4-21 name=__codelineno-4-21 href=#__codelineno-4-21></a>
+<a id=__codelineno-4-22 name=__codelineno-4-22 href=#__codelineno-4-22></a><span class=sd>        Returns:</span>
+<a id=__codelineno-4-23 name=__codelineno-4-23 href=#__codelineno-4-23></a><span class=sd>            Updated graph</span>
+<a id=__codelineno-4-24 name=__codelineno-4-24 href=#__codelineno-4-24></a><span class=sd>        &quot;&quot;&quot;</span>
+<a id=__codelineno-4-25 name=__codelineno-4-25 href=#__codelineno-4-25></a>        <span class=k>pass</span>
+<a id=__codelineno-4-26 name=__codelineno-4-26 href=#__codelineno-4-26></a>
+<a id=__codelineno-4-27 name=__codelineno-4-27 href=#__codelineno-4-27></a>    <span class=k>def</span> <span class=nf>find_path</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>graph</span><span class=p>:</span> <span class=n>Graph</span><span class=p>,</span> <span class=n>source_id</span><span class=p>:</span> <span class=nb>str</span><span class=p>,</span> <span class=n>target_id</span><span class=p>:</span> <span class=nb>str</span><span class=p>,</span> <span class=n>max_depth</span><span class=p>:</span> <span class=nb>int</span> <span class=o>=</span> <span class=mi>5</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=n>List</span><span class=p>[</span><span class=nb>str</span><span class=p>]:</span>
+<a id=__codelineno-4-28 name=__codelineno-4-28 href=#__codelineno-4-28></a><span class=w>        </span><span class=sd>&quot;&quot;&quot;Find shortest path between two nodes.</span>
+<a id=__codelineno-4-29 name=__codelineno-4-29 href=#__codelineno-4-29></a>
+<a id=__codelineno-4-30 name=__codelineno-4-30 href=#__codelineno-4-30></a><span class=sd>        Args:</span>
+<a id=__codelineno-4-31 name=__codelineno-4-31 href=#__codelineno-4-31></a><span class=sd>            graph: Graph to search</span>
+<a id=__codelineno-4-32 name=__codelineno-4-32 href=#__codelineno-4-32></a><span class=sd>            source_id: Starting node ID</span>
+<a id=__codelineno-4-33 name=__codelineno-4-33 href=#__codelineno-4-33></a><span class=sd>            target_id: Target node ID</span>
+<a id=__codelineno-4-34 name=__codelineno-4-34 href=#__codelineno-4-34></a><span class=sd>            max_depth: Maximum traversal depth</span>
+<a id=__codelineno-4-35 name=__codelineno-4-35 href=#__codelineno-4-35></a>
+<a id=__codelineno-4-36 name=__codelineno-4-36 href=#__codelineno-4-36></a><span class=sd>        Returns:</span>
+<a id=__codelineno-4-37 name=__codelineno-4-37 href=#__codelineno-4-37></a><span class=sd>            List of node IDs forming path</span>
+<a id=__codelineno-4-38 name=__codelineno-4-38 href=#__codelineno-4-38></a><span class=sd>        &quot;&quot;&quot;</span>
+<a id=__codelineno-4-39 name=__codelineno-4-39 href=#__codelineno-4-39></a>        <span class=k>pass</span>
+<a id=__codelineno-4-40 name=__codelineno-4-40 href=#__codelineno-4-40></a>
+<a id=__codelineno-4-41 name=__codelineno-4-41 href=#__codelineno-4-41></a>    <span class=k>def</span> <span class=nf>get_neighbors</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>graph</span><span class=p>:</span> <span class=n>Graph</span><span class=p>,</span> <span class=n>node_id</span><span class=p>:</span> <span class=nb>str</span><span class=p>,</span> <span class=n>relation_type</span><span class=p>:</span> <span class=nb>str</span> <span class=o>=</span> <span class=kc>None</span><span class=p>,</span> <span class=n>max_depth</span><span class=p>:</span> <span class=nb>int</span> <span class=o>=</span> <span class=mi>1</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=n>Set</span><span class=p>[</span><span class=nb>str</span><span class=p>]:</span>
+<a id=__codelineno-4-42 name=__codelineno-4-42 href=#__codelineno-4-42></a><span class=w>        </span><span class=sd>&quot;&quot;&quot;Get neighboring nodes.</span>
+<a id=__codelineno-4-43 name=__codelineno-4-43 href=#__codelineno-4-43></a>
+<a id=__codelineno-4-44 name=__codelineno-4-44 href=#__codelineno-4-44></a><span class=sd>        Args:</span>
+<a id=__codelineno-4-45 name=__codelineno-4-45 href=#__codelineno-4-45></a><span class=sd>            graph: Graph to search</span>
+<a id=__codelineno-4-46 name=__codelineno-4-46 href=#__codelineno-4-46></a><span class=sd>            node_id: Center node ID</span>
+<a id=__codelineno-4-47 name=__codelineno-4-47 href=#__codelineno-4-47></a><span class=sd>            relation_type: Optional relation filter</span>
+<a id=__codelineno-4-48 name=__codelineno-4-48 href=#__codelineno-4-48></a><span class=sd>            max_depth: Traversal depth</span>
+<a id=__codelineno-4-49 name=__codelineno-4-49 href=#__codelineno-4-49></a>
+<a id=__codelineno-4-50 name=__codelineno-4-50 href=#__codelineno-4-50></a><span class=sd>        Returns:</span>
+<a id=__codelineno-4-51 name=__codelineno-4-51 href=#__codelineno-4-51></a><span class=sd>            Set of neighbor node IDs</span>
+<a id=__codelineno-4-52 name=__codelineno-4-52 href=#__codelineno-4-52></a><span class=sd>        &quot;&quot;&quot;</span>
+<a id=__codelineno-4-53 name=__codelineno-4-53 href=#__codelineno-4-53></a>        <span class=k>pass</span>
+<a id=__codelineno-4-54 name=__codelineno-4-54 href=#__codelineno-4-54></a>
+<a id=__codelineno-4-55 name=__codelineno-4-55 href=#__codelineno-4-55></a>    <span class=k>def</span> <span class=nf>calculate_centrality</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>graph</span><span class=p>:</span> <span class=n>Graph</span><span class=p>,</span> <span class=n>node_id</span><span class=p>:</span> <span class=nb>str</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=nb>float</span><span class=p>:</span>
+<a id=__codelineno-4-56 name=__codelineno-4-56 href=#__codelineno-4-56></a><span class=w>        </span><span class=sd>&quot;&quot;&quot;Calculate centrality score for node.</span>
+<a id=__codelineno-4-57 name=__codelineno-4-57 href=#__codelineno-4-57></a>
+<a id=__codelineno-4-58 name=__codelineno-4-58 href=#__codelineno-4-58></a><span class=sd>        Args:</span>
+<a id=__codelineno-4-59 name=__codelineno-4-59 href=#__codelineno-4-59></a><span class=sd>            graph: Graph to analyze</span>
+<a id=__codelineno-4-60 name=__codelineno-4-60 href=#__codelineno-4-60></a><span class=sd>            node_id: Node to analyze</span>
+<a id=__codelineno-4-61 name=__codelineno-4-61 href=#__codelineno-4-61></a>
+<a id=__codelineno-4-62 name=__codelineno-4-62 href=#__codelineno-4-62></a><span class=sd>        Returns:</span>
+<a id=__codelineno-4-63 name=__codelineno-4-63 href=#__codelineno-4-63></a><span class=sd>            Centrality score (0-1)</span>
+<a id=__codelineno-4-64 name=__codelineno-4-64 href=#__codelineno-4-64></a><span class=sd>        &quot;&quot;&quot;</span>
+<a id=__codelineno-4-65 name=__codelineno-4-65 href=#__codelineno-4-65></a>        <span class=k>pass</span>
+</code></pre></div> <h3 id=queryinterface>QueryInterface<a class=headerlink href=#queryinterface title="Permanent link">&para;</a></h3> <div class=highlight><pre><span></span><code><a id=__codelineno-5-1 name=__codelineno-5-1 href=#__codelineno-5-1></a><span class=k>class</span> <span class=nc>QueryInterface</span><span class=p>:</span>
+<a id=__codelineno-5-2 name=__codelineno-5-2 href=#__codelineno-5-2></a>    <span class=k>def</span> <span class=nf>query</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>query</span><span class=p>:</span> <span class=n>Query</span><span class=p>,</span> <span class=n>index</span><span class=p>:</span> <span class=n>Index</span><span class=p>,</span> <span class=n>graph</span><span class=p>:</span> <span class=n>Graph</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=n>Response</span><span class=p>:</span>
+<a id=__codelineno-5-3 name=__codelineno-5-3 href=#__codelineno-5-3></a><span class=w>        </span><span class=sd>&quot;&quot;&quot;Execute query against index and graph.</span>
+<a id=__codelineno-5-4 name=__codelineno-5-4 href=#__codelineno-5-4></a>
+<a id=__codelineno-5-5 name=__codelineno-5-5 href=#__codelineno-5-5></a><span class=sd>        Args:</span>
+<a id=__codelineno-5-6 name=__codelineno-5-6 href=#__codelineno-5-6></a><span class=sd>            query: Query object</span>
+<a id=__codelineno-5-7 name=__codelineno-5-7 href=#__codelineno-5-7></a><span class=sd>            index: Search index</span>
+<a id=__codelineno-5-8 name=__codelineno-5-8 href=#__codelineno-5-8></a><span class=sd>            graph: Relationship graph</span>
+<a id=__codelineno-5-9 name=__codelineno-5-9 href=#__codelineno-5-9></a>
+<a id=__codelineno-5-10 name=__codelineno-5-10 href=#__codelineno-5-10></a><span class=sd>        Returns:</span>
+<a id=__codelineno-5-11 name=__codelineno-5-11 href=#__codelineno-5-11></a><span class=sd>            Query response</span>
+<a id=__codelineno-5-12 name=__codelineno-5-12 href=#__codelineno-5-12></a><span class=sd>        &quot;&quot;&quot;</span>
+<a id=__codelineno-5-13 name=__codelineno-5-13 href=#__codelineno-5-13></a>        <span class=k>pass</span>
+<a id=__codelineno-5-14 name=__codelineno-5-14 href=#__codelineno-5-14></a>
+<a id=__codelineno-5-15 name=__codelineno-5-15 href=#__codelineno-5-15></a>    <span class=k>def</span> <span class=nf>classify_intent</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>query_text</span><span class=p>:</span> <span class=nb>str</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=nb>str</span><span class=p>:</span>
+<a id=__codelineno-5-16 name=__codelineno-5-16 href=#__codelineno-5-16></a><span class=w>        </span><span class=sd>&quot;&quot;&quot;Classify query intent.</span>
+<a id=__codelineno-5-17 name=__codelineno-5-17 href=#__codelineno-5-17></a>
+<a id=__codelineno-5-18 name=__codelineno-5-18 href=#__codelineno-5-18></a><span class=sd>        Args:</span>
+<a id=__codelineno-5-19 name=__codelineno-5-19 href=#__codelineno-5-19></a><span class=sd>            query_text: Raw query text</span>
+<a id=__codelineno-5-20 name=__codelineno-5-20 href=#__codelineno-5-20></a>
+<a id=__codelineno-5-21 name=__codelineno-5-21 href=#__codelineno-5-21></a><span class=sd>        Returns:</span>
+<a id=__codelineno-5-22 name=__codelineno-5-22 href=#__codelineno-5-22></a><span class=sd>            Intent type (search, find, analyze, graph)</span>
+<a id=__codelineno-5-23 name=__codelineno-5-23 href=#__codelineno-5-23></a><span class=sd>        &quot;&quot;&quot;</span>
+<a id=__codelineno-5-24 name=__codelineno-5-24 href=#__codelineno-5-24></a>        <span class=k>pass</span>
+<a id=__codelineno-5-25 name=__codelineno-5-25 href=#__codelineno-5-25></a>
+<a id=__codelineno-5-26 name=__codelineno-5-26 href=#__codelineno-5-26></a>    <span class=k>def</span> <span class=nf>extract_filters</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>query_text</span><span class=p>:</span> <span class=nb>str</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=n>Dict</span><span class=p>[</span><span class=nb>str</span><span class=p>,</span> <span class=n>Any</span><span class=p>]:</span>
+<a id=__codelineno-5-27 name=__codelineno-5-27 href=#__codelineno-5-27></a><span class=w>        </span><span class=sd>&quot;&quot;&quot;Extract filters from query.</span>
+<a id=__codelineno-5-28 name=__codelineno-5-28 href=#__codelineno-5-28></a>
+<a id=__codelineno-5-29 name=__codelineno-5-29 href=#__codelineno-5-29></a><span class=sd>        Args:</span>
+<a id=__codelineno-5-30 name=__codelineno-5-30 href=#__codelineno-5-30></a><span class=sd>            query_text: Raw query text</span>
+<a id=__codelineno-5-31 name=__codelineno-5-31 href=#__codelineno-5-31></a>
+<a id=__codelineno-5-32 name=__codelineno-5-32 href=#__codelineno-5-32></a><span class=sd>        Returns:</span>
+<a id=__codelineno-5-33 name=__codelineno-5-33 href=#__codelineno-5-33></a><span class=sd>            Dictionary of filters</span>
+<a id=__codelineno-5-34 name=__codelineno-5-34 href=#__codelineno-5-34></a><span class=sd>        &quot;&quot;&quot;</span>
+<a id=__codelineno-5-35 name=__codelineno-5-35 href=#__codelineno-5-35></a>        <span class=k>pass</span>
+<a id=__codelineno-5-36 name=__codelineno-5-36 href=#__codelineno-5-36></a>
+<a id=__codelineno-5-37 name=__codelineno-5-37 href=#__codelineno-5-37></a>    <span class=k>def</span> <span class=nf>rank_results</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>results</span><span class=p>:</span> <span class=n>List</span><span class=p>[</span><span class=n>MemoryUnit</span><span class=p>],</span> <span class=n>query</span><span class=p>:</span> <span class=n>Query</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=n>List</span><span class=p>[</span><span class=n>MemoryUnit</span><span class=p>]:</span>
+<a id=__codelineno-5-38 name=__codelineno-5-38 href=#__codelineno-5-38></a><span class=w>        </span><span class=sd>&quot;&quot;&quot;Rank results by relevance.</span>
+<a id=__codelineno-5-39 name=__codelineno-5-39 href=#__codelineno-5-39></a>
+<a id=__codelineno-5-40 name=__codelineno-5-40 href=#__codelineno-5-40></a><span class=sd>        Args:</span>
+<a id=__codelineno-5-41 name=__codelineno-5-41 href=#__codelineno-5-41></a><span class=sd>            results: Search results</span>
+<a id=__codelineno-5-42 name=__codelineno-5-42 href=#__codelineno-5-42></a><span class=sd>            query: Original query</span>
+<a id=__codelineno-5-43 name=__codelineno-5-43 href=#__codelineno-5-43></a>
+<a id=__codelineno-5-44 name=__codelineno-5-44 href=#__codelineno-5-44></a><span class=sd>        Returns:</span>
+<a id=__codelineno-5-45 name=__codelineno-5-45 href=#__codelineno-5-45></a><span class=sd>            Ranked results</span>
+<a id=__codelineno-5-46 name=__codelineno-5-46 href=#__codelineno-5-46></a><span class=sd>        &quot;&quot;&quot;</span>
+<a id=__codelineno-5-47 name=__codelineno-5-47 href=#__codelineno-5-47></a>        <span class=k>pass</span>
+</code></pre></div> <h3 id=analysisinterface>AnalysisInterface<a class=headerlink href=#analysisinterface title="Permanent link">&para;</a></h3> <div class=highlight><pre><span></span><code><a id=__codelineno-6-1 name=__codelineno-6-1 href=#__codelineno-6-1></a><span class=k>class</span> <span class=nc>AnalysisInterface</span><span class=p>:</span>
+<a id=__codelineno-6-2 name=__codelineno-6-2 href=#__codelineno-6-2></a>    <span class=k>def</span> <span class=nf>analyze</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>memory_units</span><span class=p>:</span> <span class=n>List</span><span class=p>[</span><span class=n>MemoryUnit</span><span class=p>])</span> <span class=o>-&gt;</span> <span class=n>List</span><span class=p>[</span><span class=n>Findings</span><span class=p>]:</span>
+<a id=__codelineno-6-3 name=__codelineno-6-3 href=#__codelineno-6-3></a><span class=w>        </span><span class=sd>&quot;&quot;&quot;Analyze memory units.</span>
+<a id=__codelineno-6-4 name=__codelineno-6-4 href=#__codelineno-6-4></a>
+<a id=__codelineno-6-5 name=__codelineno-6-5 href=#__codelineno-6-5></a><span class=sd>        Args:</span>
+<a id=__codelineno-6-6 name=__codelineno-6-6 href=#__codelineno-6-6></a><span class=sd>            memory_units: List of memory units</span>
+<a id=__codelineno-6-7 name=__codelineno-6-7 href=#__codelineno-6-7></a>
+<a id=__codelineno-6-8 name=__codelineno-6-8 href=#__codelineno-6-8></a><span class=sd>        Returns:</span>
+<a id=__codelineno-6-9 name=__codelineno-6-9 href=#__codelineno-6-9></a><span class=sd>            List of findings</span>
+<a id=__codelineno-6-10 name=__codelineno-6-10 href=#__codelineno-6-10></a><span class=sd>        &quot;&quot;&quot;</span>
+<a id=__codelineno-6-11 name=__codelineno-6-11 href=#__codelineno-6-11></a>        <span class=k>pass</span>
+<a id=__codelineno-6-12 name=__codelineno-6-12 href=#__codelineno-6-12></a>
+<a id=__codelineno-6-13 name=__codelineno-6-13 href=#__codelineno-6-13></a>    <span class=k>def</span> <span class=nf>detect_patterns</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>memory_units</span><span class=p>:</span> <span class=n>List</span><span class=p>[</span><span class=n>MemoryUnit</span><span class=p>])</span> <span class=o>-&gt;</span> <span class=n>Dict</span><span class=p>[</span><span class=nb>str</span><span class=p>,</span> <span class=n>List</span><span class=p>[</span><span class=n>MemoryUnit</span><span class=p>]]:</span>
+<a id=__codelineno-6-14 name=__codelineno-6-14 href=#__codelineno-6-14></a><span class=w>        </span><span class=sd>&quot;&quot;&quot;Detect code patterns.</span>
+<a id=__codelineno-6-15 name=__codelineno-6-15 href=#__codelineno-6-15></a>
+<a id=__codelineno-6-16 name=__codelineno-6-16 href=#__codelineno-6-16></a><span class=sd>        Args:</span>
+<a id=__codelineno-6-17 name=__codelineno-6-17 href=#__codelineno-6-17></a><span class=sd>            memory_units: List of memory units</span>
+<a id=__codelineno-6-18 name=__codelineno-6-18 href=#__codelineno-6-18></a>
+<a id=__codelineno-6-19 name=__codelineno-6-19 href=#__codelineno-6-19></a><span class=sd>        Returns:</span>
+<a id=__codelineno-6-20 name=__codelineno-6-20 href=#__codelineno-6-20></a><span class=sd>            Dictionary mapping pattern to units</span>
+<a id=__codelineno-6-21 name=__codelineno-6-21 href=#__codelineno-6-21></a><span class=sd>        &quot;&quot;&quot;</span>
+<a id=__codelineno-6-22 name=__codelineno-6-22 href=#__codelineno-6-22></a>        <span class=k>pass</span>
+<a id=__codelineno-6-23 name=__codelineno-6-23 href=#__codelineno-6-23></a>
+<a id=__codelineno-6-24 name=__codelineno-6-24 href=#__codelineno-6-24></a>    <span class=k>def</span> <span class=nf>calculate_metrics</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>memory_units</span><span class=p>:</span> <span class=n>List</span><span class=p>[</span><span class=n>MemoryUnit</span><span class=p>])</span> <span class=o>-&gt;</span> <span class=n>Dict</span><span class=p>[</span><span class=nb>str</span><span class=p>,</span> <span class=nb>float</span><span class=p>]:</span>
+<a id=__codelineno-6-25 name=__codelineno-6-25 href=#__codelineno-6-25></a><span class=w>        </span><span class=sd>&quot;&quot;&quot;Calculate code metrics.</span>
+<a id=__codelineno-6-26 name=__codelineno-6-26 href=#__codelineno-6-26></a>
+<a id=__codelineno-6-27 name=__codelineno-6-27 href=#__codelineno-6-27></a><span class=sd>        Args:</span>
+<a id=__codelineno-6-28 name=__codelineno-6-28 href=#__codelineno-6-28></a><span class=sd>            memory_units: List of memory units</span>
+<a id=__codelineno-6-29 name=__codelineno-6-29 href=#__codelineno-6-29></a>
+<a id=__codelineno-6-30 name=__codelineno-6-30 href=#__codelineno-6-30></a><span class=sd>        Returns:</span>
+<a id=__codelineno-6-31 name=__codelineno-6-31 href=#__codelineno-6-31></a><span class=sd>            Dictionary of metrics</span>
+<a id=__codelineno-6-32 name=__codelineno-6-32 href=#__codelineno-6-32></a><span class=sd>        &quot;&quot;&quot;</span>
+<a id=__codelineno-6-33 name=__codelineno-6-33 href=#__codelineno-6-33></a>        <span class=k>pass</span>
+</code></pre></div> <h3 id=incrementalinterface>IncrementalInterface<a class=headerlink href=#incrementalinterface title="Permanent link">&para;</a></h3> <div class=highlight><pre><span></span><code><a id=__codelineno-7-1 name=__codelineno-7-1 href=#__codelineno-7-1></a><span class=k>class</span> <span class=nc>IncrementalInterface</span><span class=p>:</span>
+<a id=__codelineno-7-2 name=__codelineno-7-2 href=#__codelineno-7-2></a>    <span class=k>def</span> <span class=nf>detect_changes</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>repo_path</span><span class=p>:</span> <span class=n>Path</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=n>Tuple</span><span class=p>[</span><span class=n>List</span><span class=p>[</span><span class=n>Path</span><span class=p>],</span> <span class=n>List</span><span class=p>[</span><span class=n>Path</span><span class=p>],</span> <span class=n>List</span><span class=p>[</span><span class=n>Path</span><span class=p>]]:</span>
+<a id=__codelineno-7-3 name=__codelineno-7-3 href=#__codelineno-7-3></a><span class=w>        </span><span class=sd>&quot;&quot;&quot;Detect file changes.</span>
+<a id=__codelineno-7-4 name=__codelineno-7-4 href=#__codelineno-7-4></a>
+<a id=__codelineno-7-5 name=__codelineno-7-5 href=#__codelineno-7-5></a><span class=sd>        Args:</span>
+<a id=__codelineno-7-6 name=__codelineno-7-6 href=#__codelineno-7-6></a><span class=sd>            repo_path: Repository path</span>
+<a id=__codelineno-7-7 name=__codelineno-7-7 href=#__codelineno-7-7></a>
+<a id=__codelineno-7-8 name=__codelineno-7-8 href=#__codelineno-7-8></a><span class=sd>        Returns:</span>
+<a id=__codelineno-7-9 name=__codelineno-7-9 href=#__codelineno-7-9></a><span class=sd>            Tuple of (added, modified, deleted) files</span>
+<a id=__codelineno-7-10 name=__codelineno-7-10 href=#__codelineno-7-10></a><span class=sd>        &quot;&quot;&quot;</span>
+<a id=__codelineno-7-11 name=__codelineno-7-11 href=#__codelineno-7-11></a>        <span class=k>pass</span>
+<a id=__codelineno-7-12 name=__codelineno-7-12 href=#__codelineno-7-12></a>
+<a id=__codelineno-7-13 name=__codelineno-7-13 href=#__codelineno-7-13></a>    <span class=k>def</span> <span class=nf>calculate_file_hash</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>file_path</span><span class=p>:</span> <span class=n>Path</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=nb>str</span><span class=p>:</span>
+<a id=__codelineno-7-14 name=__codelineno-7-14 href=#__codelineno-7-14></a><span class=w>        </span><span class=sd>&quot;&quot;&quot;Calculate SHA256 hash of file.</span>
+<a id=__codelineno-7-15 name=__codelineno-7-15 href=#__codelineno-7-15></a>
+<a id=__codelineno-7-16 name=__codelineno-7-16 href=#__codelineno-7-16></a><span class=sd>        Args:</span>
+<a id=__codelineno-7-17 name=__codelineno-7-17 href=#__codelineno-7-17></a><span class=sd>            file_path: File to hash</span>
+<a id=__codelineno-7-18 name=__codelineno-7-18 href=#__codelineno-7-18></a>
+<a id=__codelineno-7-19 name=__codelineno-7-19 href=#__codelineno-7-19></a><span class=sd>        Returns:</span>
+<a id=__codelineno-7-20 name=__codelineno-7-20 href=#__codelineno-7-20></a><span class=sd>            Hex digest of hash</span>
+<a id=__codelineno-7-21 name=__codelineno-7-21 href=#__codelineno-7-21></a><span class=sd>        &quot;&quot;&quot;</span>
+<a id=__codelineno-7-22 name=__codelineno-7-22 href=#__codelineno-7-22></a>        <span class=k>pass</span>
+<a id=__codelineno-7-23 name=__codelineno-7-23 href=#__codelineno-7-23></a>
+<a id=__codelineno-7-24 name=__codelineno-7-24 href=#__codelineno-7-24></a>    <span class=k>def</span> <span class=nf>update_index</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>index</span><span class=p>:</span> <span class=n>Index</span><span class=p>,</span> <span class=n>changed_units</span><span class=p>:</span> <span class=n>List</span><span class=p>[</span><span class=n>MemoryUnit</span><span class=p>])</span> <span class=o>-&gt;</span> <span class=n>Index</span><span class=p>:</span>
+<a id=__codelineno-7-25 name=__codelineno-7-25 href=#__codelineno-7-25></a><span class=w>        </span><span class=sd>&quot;&quot;&quot;Update index incrementally.</span>
+<a id=__codelineno-7-26 name=__codelineno-7-26 href=#__codelineno-7-26></a>
+<a id=__codelineno-7-27 name=__codelineno-7-27 href=#__codelineno-7-27></a><span class=sd>        Args:</span>
+<a id=__codelineno-7-28 name=__codelineno-7-28 href=#__codelineno-7-28></a><span class=sd>            index: Existing index</span>
+<a id=__codelineno-7-29 name=__codelineno-7-29 href=#__codelineno-7-29></a><span class=sd>            changed_units: Changed memory units</span>
+<a id=__codelineno-7-30 name=__codelineno-7-30 href=#__codelineno-7-30></a>
+<a id=__codelineno-7-31 name=__codelineno-7-31 href=#__codelineno-7-31></a><span class=sd>        Returns:</span>
+<a id=__codelineno-7-32 name=__codelineno-7-32 href=#__codelineno-7-32></a><span class=sd>            Updated index</span>
+<a id=__codelineno-7-33 name=__codelineno-7-33 href=#__codelineno-7-33></a><span class=sd>        &quot;&quot;&quot;</span>
+<a id=__codelineno-7-34 name=__codelineno-7-34 href=#__codelineno-7-34></a>        <span class=k>pass</span>
+<a id=__codelineno-7-35 name=__codelineno-7-35 href=#__codelineno-7-35></a>
+<a id=__codelineno-7-36 name=__codelineno-7-36 href=#__codelineno-7-36></a>    <span class=k>def</span> <span class=nf>update_graph</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>graph</span><span class=p>:</span> <span class=n>Graph</span><span class=p>,</span> <span class=n>changed_units</span><span class=p>:</span> <span class=n>List</span><span class=p>[</span><span class=n>MemoryUnit</span><span class=p>],</span> <span class=n>changed_relationships</span><span class=p>:</span> <span class=n>List</span><span class=p>[</span><span class=n>Relationship</span><span class=p>])</span> <span class=o>-&gt;</span> <span class=n>Graph</span><span class=p>:</span>
+<a id=__codelineno-7-37 name=__codelineno-7-37 href=#__codelineno-7-37></a><span class=w>        </span><span class=sd>&quot;&quot;&quot;Update graph incrementally.</span>
+<a id=__codelineno-7-38 name=__codelineno-7-38 href=#__codelineno-7-38></a>
+<a id=__codelineno-7-39 name=__codelineno-7-39 href=#__codelineno-7-39></a><span class=sd>        Args:</span>
+<a id=__codelineno-7-40 name=__codelineno-7-40 href=#__codelineno-7-40></a><span class=sd>            graph: Existing graph</span>
+<a id=__codelineno-7-41 name=__codelineno-7-41 href=#__codelineno-7-41></a><span class=sd>            changed_units: Changed memory units</span>
+<a id=__codelineno-7-42 name=__codelineno-7-42 href=#__codelineno-7-42></a><span class=sd>            changed_relationships: Changed relationships</span>
+<a id=__codelineno-7-43 name=__codelineno-7-43 href=#__codelineno-7-43></a>
+<a id=__codelineno-7-44 name=__codelineno-7-44 href=#__codelineno-7-44></a><span class=sd>        Returns:</span>
+<a id=__codelineno-7-45 name=__codelineno-7-45 href=#__codelineno-7-45></a><span class=sd>            Updated graph</span>
+<a id=__codelineno-7-46 name=__codelineno-7-46 href=#__codelineno-7-46></a><span class=sd>        &quot;&quot;&quot;</span>
+<a id=__codelineno-7-47 name=__codelineno-7-47 href=#__codelineno-7-47></a>        <span class=k>pass</span>
+</code></pre></div> <h3 id=scannerinterface>ScannerInterface<a class=headerlink href=#scannerinterface title="Permanent link">&para;</a></h3> <div class=highlight><pre><span></span><code><a id=__codelineno-8-1 name=__codelineno-8-1 href=#__codelineno-8-1></a><span class=k>class</span> <span class=nc>ScannerInterface</span><span class=p>:</span>
+<a id=__codelineno-8-2 name=__codelineno-8-2 href=#__codelineno-8-2></a>    <span class=k>def</span> <span class=nf>scan</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>repo_path</span><span class=p>:</span> <span class=n>Path</span><span class=p>,</span> <span class=n>config</span><span class=p>:</span> <span class=n>Config</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=n>Generator</span><span class=p>[</span><span class=n>Path</span><span class=p>,</span> <span class=kc>None</span><span class=p>,</span> <span class=kc>None</span><span class=p>]:</span>
+<a id=__codelineno-8-3 name=__codelineno-8-3 href=#__codelineno-8-3></a><span class=w>        </span><span class=sd>&quot;&quot;&quot;Scan repository for files.</span>
+<a id=__codelineno-8-4 name=__codelineno-8-4 href=#__codelineno-8-4></a>
+<a id=__codelineno-8-5 name=__codelineno-8-5 href=#__codelineno-8-5></a><span class=sd>        Args:</span>
+<a id=__codelineno-8-6 name=__codelineno-8-6 href=#__codelineno-8-6></a><span class=sd>            repo_path: Repository path</span>
+<a id=__codelineno-8-7 name=__codelineno-8-7 href=#__codelineno-8-7></a><span class=sd>            config: Scan configuration</span>
+<a id=__codelineno-8-8 name=__codelineno-8-8 href=#__codelineno-8-8></a>
+<a id=__codelineno-8-9 name=__codelineno-8-9 href=#__codelineno-8-9></a><span class=sd>        Yields:</span>
+<a id=__codelineno-8-10 name=__codelineno-8-10 href=#__codelineno-8-10></a><span class=sd>            File paths</span>
+<a id=__codelineno-8-11 name=__codelineno-8-11 href=#__codelineno-8-11></a><span class=sd>        &quot;&quot;&quot;</span>
+<a id=__codelineno-8-12 name=__codelineno-8-12 href=#__codelineno-8-12></a>        <span class=k>pass</span>
+<a id=__codelineno-8-13 name=__codelineno-8-13 href=#__codelineno-8-13></a>
+<a id=__codelineno-8-14 name=__codelineno-8-14 href=#__codelineno-8-14></a>    <span class=k>def</span> <span class=nf>should_scan</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>file_path</span><span class=p>:</span> <span class=n>Path</span><span class=p>,</span> <span class=n>config</span><span class=p>:</span> <span class=n>Config</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=nb>bool</span><span class=p>:</span>
+<a id=__codelineno-8-15 name=__codelineno-8-15 href=#__codelineno-8-15></a><span class=w>        </span><span class=sd>&quot;&quot;&quot;Check if file should be scanned.</span>
+<a id=__codelineno-8-16 name=__codelineno-8-16 href=#__codelineno-8-16></a>
+<a id=__codelineno-8-17 name=__codelineno-8-17 href=#__codelineno-8-17></a><span class=sd>        Args:</span>
+<a id=__codelineno-8-18 name=__codelineno-8-18 href=#__codelineno-8-18></a><span class=sd>            file_path: File to check</span>
+<a id=__codelineno-8-19 name=__codelineno-8-19 href=#__codelineno-8-19></a><span class=sd>            config: Scan configuration</span>
+<a id=__codelineno-8-20 name=__codelineno-8-20 href=#__codelineno-8-20></a>
+<a id=__codelineno-8-21 name=__codelineno-8-21 href=#__codelineno-8-21></a><span class=sd>        Returns:</span>
+<a id=__codelineno-8-22 name=__codelineno-8-22 href=#__codelineno-8-22></a><span class=sd>            True if should scan</span>
+<a id=__codelineno-8-23 name=__codelineno-8-23 href=#__codelineno-8-23></a><span class=sd>        &quot;&quot;&quot;</span>
+<a id=__codelineno-8-24 name=__codelineno-8-24 href=#__codelineno-8-24></a>        <span class=k>pass</span>
+</code></pre></div> <h3 id=embeddinginterface>EmbeddingInterface<a class=headerlink href=#embeddinginterface title="Permanent link">&para;</a></h3> <div class=highlight><pre><span></span><code><a id=__codelineno-9-1 name=__codelineno-9-1 href=#__codelineno-9-1></a><span class=k>class</span> <span class=nc>EmbeddingInterface</span><span class=p>:</span>
+<a id=__codelineno-9-2 name=__codelineno-9-2 href=#__codelineno-9-2></a>    <span class=k>def</span> <span class=nf>embed</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>text</span><span class=p>:</span> <span class=nb>str</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=n>List</span><span class=p>[</span><span class=nb>float</span><span class=p>]:</span>
+<a id=__codelineno-9-3 name=__codelineno-9-3 href=#__codelineno-9-3></a><span class=w>        </span><span class=sd>&quot;&quot;&quot;Generate embedding for text.</span>
+<a id=__codelineno-9-4 name=__codelineno-9-4 href=#__codelineno-9-4></a>
+<a id=__codelineno-9-5 name=__codelineno-9-5 href=#__codelineno-9-5></a><span class=sd>        Args:</span>
+<a id=__codelineno-9-6 name=__codelineno-9-6 href=#__codelineno-9-6></a><span class=sd>            text: Text to embed</span>
+<a id=__codelineno-9-7 name=__codelineno-9-7 href=#__codelineno-9-7></a>
+<a id=__codelineno-9-8 name=__codelineno-9-8 href=#__codelineno-9-8></a><span class=sd>        Returns:</span>
+<a id=__codelineno-9-9 name=__codelineno-9-9 href=#__codelineno-9-9></a><span class=sd>            Embedding vector</span>
+<a id=__codelineno-9-10 name=__codelineno-9-10 href=#__codelineno-9-10></a><span class=sd>        &quot;&quot;&quot;</span>
+<a id=__codelineno-9-11 name=__codelineno-9-11 href=#__codelineno-9-11></a>        <span class=k>pass</span>
+<a id=__codelineno-9-12 name=__codelineno-9-12 href=#__codelineno-9-12></a>
+<a id=__codelineno-9-13 name=__codelineno-9-13 href=#__codelineno-9-13></a>    <span class=k>def</span> <span class=nf>similarity</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>embedding1</span><span class=p>:</span> <span class=n>List</span><span class=p>[</span><span class=nb>float</span><span class=p>],</span> <span class=n>embedding2</span><span class=p>:</span> <span class=n>List</span><span class=p>[</span><span class=nb>float</span><span class=p>])</span> <span class=o>-&gt;</span> <span class=nb>float</span><span class=p>:</span>
+<a id=__codelineno-9-14 name=__codelineno-9-14 href=#__codelineno-9-14></a><span class=w>        </span><span class=sd>&quot;&quot;&quot;Calculate similarity between embeddings.</span>
+<a id=__codelineno-9-15 name=__codelineno-9-15 href=#__codelineno-9-15></a>
+<a id=__codelineno-9-16 name=__codelineno-9-16 href=#__codelineno-9-16></a><span class=sd>        Args:</span>
+<a id=__codelineno-9-17 name=__codelineno-9-17 href=#__codelineno-9-17></a><span class=sd>            embedding1: First embedding</span>
+<a id=__codelineno-9-18 name=__codelineno-9-18 href=#__codelineno-9-18></a><span class=sd>            embedding2: Second embedding</span>
+<a id=__codelineno-9-19 name=__codelineno-9-19 href=#__codelineno-9-19></a>
+<a id=__codelineno-9-20 name=__codelineno-9-20 href=#__codelineno-9-20></a><span class=sd>        Returns:</span>
+<a id=__codelineno-9-21 name=__codelineno-9-21 href=#__codelineno-9-21></a><span class=sd>            Similarity score (0-1)</span>
+<a id=__codelineno-9-22 name=__codelineno-9-22 href=#__codelineno-9-22></a><span class=sd>        &quot;&quot;&quot;</span>
+<a id=__codelineno-9-23 name=__codelineno-9-23 href=#__codelineno-9-23></a>        <span class=k>pass</span>
+</code></pre></div> <h2 id=versioning>Versioning<a class=headerlink href=#versioning title="Permanent link">&para;</a></h2> <p>All interfaces are versioned. Changes to interfaces:</p> <ul> <li><strong>Patch</strong>: Bug fixes, backward compatible</li> <li><strong>Minor</strong>: New methods, backward compatible</li> <li><strong>Major</strong>: Breaking changes</li> </ul> <p>Current version: <strong>1.0.0</strong></p></p> </article> </section> <!-- endblock --> <!-- block footer --> <footer> <div class="d-flex flex-sm-row justify-content-between py-2 border-top drac-text-black drac-bg-cyan-green"> <a href=https://github.com/dracula/mkdocs target=_blank style="padding-left: 1%;" class="footer-text drac-anchor drac-text-black drac-text-purple--hover"> Made with Dracula Theme for MkDocs </a> </div> </footer> <!-- endblock --> </div> </main> <script>var base_url = '..';</script> <script src=../assets/js/jquery-3.3.1.slim.min.js></script> <script src=../assets/js/bootstrap.bundle.min.js></script> <script src=../assets/js/mkdocs.js></script> <script src=../search/main.js defer></script> </body> </html>

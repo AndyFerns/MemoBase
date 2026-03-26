@@ -1,0 +1,99 @@
+/* Extra custom styles for MemoBase documentation */
+
+:root {
+  --md-primary-fg-color: #bd93f9;
+  --md-accent-fg-color: #ff79c6;
+}
+
+.md-header {
+  background: linear-gradient(90deg, #282a36 0%, #44475a 100%);
+}
+
+.md-nav__title {
+  font-weight: 600;
+}
+
+.md-content {
+  font-size: 0.9rem;
+}
+
+.md-typeset h1 {
+  color: #bd93f9;
+  font-weight: 600;
+}
+
+.md-typeset h2 {
+  color: #8be9fd;
+  font-weight: 500;
+}
+
+.md-typeset h3 {
+  color: #50fa7b;
+}
+
+.md-typeset code {
+  background-color: #44475a;
+  border-radius: 3px;
+  padding: 0.1em 0.3em;
+}
+
+.md-typeset pre {
+  background-color: #282a36;
+  border-radius: 6px;
+}
+
+.md-typeset table:not([class]) {
+  background-color: #282a36;
+  border-radius: 6px;
+}
+
+.md-typeset table:not([class]) th {
+  background-color: #44475a;
+  color: #f8f8f2;
+}
+
+.md-typeset table:not([class]) td {
+  border-top: 1px solid #6272a4;
+}
+
+.md-search__input {
+  background-color: #44475a;
+}
+
+.md-search__input::placeholder {
+  color: #6272a4;
+}
+
+.md-footer {
+  background-color: #282a36;
+}
+
+.md-footer-meta {
+  background-color: #44475a;
+}
+
+/* Admonition styling */
+.md-typeset .admonition {
+  border-radius: 6px;
+  border-left-width: 4px;
+}
+
+.md-typeset .admonition.note {
+  border-left-color: #8be9fd;
+  background-color: #282a36;
+}
+
+.md-typeset .admonition.warning {
+  border-left-color: #ffb86c;
+  background-color: #282a36;
+}
+
+.md-typeset .admonition.danger {
+  border-left-color: #ff5555;
+  background-color: #282a36;
+}
+
+.md-typeset .admonition.tip {
+  border-left-color: #50fa7b;
+  background-color: #282a36;
+}
