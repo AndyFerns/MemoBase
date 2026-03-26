@@ -1,0 +1,57 @@
+site_name: MemoBase Documentation
+site_description: A codebase memory system with deep semantic understanding
+site_author: Andrew Fernandes
+docs_dir: docs
+theme:
+  name: dracula
+  highlightjs: true
+  hljs_languages:
+    - python
+    - javascript
+    - yaml
+    - json
+    - bash
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/memobase/memobase
+  version:
+    provider: mike
+
+nav:
+  - Home: index.md
+  - Architecture: architecture.md
+  - Interfaces: interfaces.md
+  - Data Models: data_models.md
+  - CLI Usage: cli_usage.md
+  - TUI Usage: tui_usage.md
+  - Performance: performance.md
+  - Testing: testing.md
+  - Contributing: contributing.md
+
+plugins:
+  - search
+  - minify:
+      minify_html: true
+
+markdown_extensions:
+  - admonition
+  - codehilite:
+      guess_lang: false
+  - toc:
+      permalink: true
+  - tables
+  - fenced_code
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+copyright: Copyright &copy; 2024 Andrew Fernandes
+
+extra_css:
+  - stylesheets/extra.css
