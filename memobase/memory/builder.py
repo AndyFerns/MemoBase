@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import Generator, List
 
 from memobase.core.interfaces import EmbeddingInterface, MemoryBuilderInterface
-from memobase.core.models import MemoryUnit, ParsedFile, Relationship, Symbol, SymbolType
+from memobase.core.models import MemoryUnit, ParsedFile, Relationship, Symbol, SymbolType, RelationType
 
 
 class MemoryBuilder(MemoryBuilderInterface):
