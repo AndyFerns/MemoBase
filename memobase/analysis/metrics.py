@@ -15,8 +15,13 @@ from memobase.core.models import MemoryUnit, SymbolType
 class MetricsCalculator:
     """Calculates various code metrics and statistics."""
     
-    def __init__(self) -> None:
-        """Initialize metrics calculator."""
+    def __init__(self, config=None) -> None:
+        """Initialize metrics calculator.
+        
+        Args:
+            config: Optional project configuration
+        """
+        self.config = config
         self.metric_weights = {
             'complexity': 0.3,
             'size': 0.2,

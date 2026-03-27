@@ -113,6 +113,24 @@ class QueryType(Enum):
     HELP = "help"
 
 
+class AnalysisType(Enum):
+    """Analysis types."""
+    SECURITY = "security"
+    QUALITY = "quality"
+    PERFORMANCE = "performance"
+    MAINTAINABILITY = "maintainability"
+    COMPLEXITY = "complexity"
+
+
+class SeverityLevel(Enum):
+    """Severity levels for findings."""
+    CRITICAL = "critical"
+    HIGH = "high"
+    MEDIUM = "medium"
+    LOW = "low"
+    INFO = "info"
+
+
 class ParsedFile(VersionedModel):
     """Represents a parsed source file."""
     
@@ -315,12 +333,27 @@ class Index(VersionedModel):
     ) -> None:
         super().__init__(**kwargs)
         self.id = id
-        self.term_index = term_index or {}
-        self.symbol_index = symbol_index or {}
-        self.file_index = file_index or {}
+        # Convert lists to sets if needed (JSON deserialization)
+        self.term_index = self._convert_to_sets(term_index) if term_index else {}
+        self.symbol_index = self._convert_to_sets(symbol_index) if symbol_index else {}
+        self.file_index = self._convert_to_sets(file_index) if file_index else {}
         self.metadata = metadata or {}
         self.created_at = created_at or datetime.utcnow()
         self.updated_at = updated_at or datetime.utcnow()
+    
+    @staticmethod
+    def _convert_to_sets(index_dict: Dict[str, Any]) -> Dict[str, Set[str]]:
+        """Convert dict values from lists to sets (for JSON deserialization)."""
+        result = {}
+        for key, value in index_dict.items():
+            if isinstance(value, list):
+                result[key] = set(value)
+            elif isinstance(value, set):
+                result[key] = value
+            else:
+                # Handle single values
+                result[key] = {str(value)}
+        return result
     
     def add_term(self, term: str, unit_id: str) -> None:
         """Add term to index."""
@@ -506,11 +539,13 @@ class Config(VersionedModel):
         graph_max_depth: int = 5,
         embedding_model: str = "default",
         cache_size_mb: int = 100,
+        storage_path: str = ".memobase",
+        verbosity: int = 1,
         metadata: Optional[Dict[str, Any]] = None,
         **kwargs
     ) -> None:
         super().__init__(**kwargs)
-        self.repo_path = repo_path
+        self.repo_path = Path(repo_path) if isinstance(repo_path, str) else repo_path
         self.max_file_size_mb = max_file_size_mb
         self.excluded_patterns = excluded_patterns or [
             "*.pyc",
@@ -535,4 +570,6 @@ class Config(VersionedModel):
         self.graph_max_depth = graph_max_depth
         self.embedding_model = embedding_model
         self.cache_size_mb = cache_size_mb
+        self.storage_path = storage_path
+        self.verbosity = verbosity
         self.metadata = metadata or {}

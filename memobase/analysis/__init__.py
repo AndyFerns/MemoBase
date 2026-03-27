@@ -4,9 +4,9 @@ Analysis module for MemoBase.
 Code analysis and metrics calculation.
 """
 
-from memobase.analyzer.code_analyzer import CodeAnalyzer
-from memobase.analyzer.metrics import MetricsCalculator
-from memobase.analyzer.pattern_detector import PatternDetector
+from memobase.analysis.code_analyzer import CodeAnalyzer
+from memobase.analysis.metrics import MetricsCalculator
+from memobase.analysis.pattern_detector import PatternDetector
 
 __all__ = [
     "CodeAnalyzer",

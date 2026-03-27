@@ -19,8 +19,13 @@ from memobase.core.models import Findings, MemoryUnit, SymbolType
 class CodeAnalyzer(AnalysisInterface):
     """Advanced code analysis with multiple detection algorithms."""
     
-    def __init__(self) -> None:
-        """Initialize code analyzer."""
+    def __init__(self, config=None) -> None:
+        """Initialize code analyzer.
+        
+        Args:
+            config: Optional project configuration
+        """
+        self.config = config
         self.analysis_patterns = self._init_analysis_patterns()
         self.severity_weights = {
             'critical': 1.0,

@@ -15,8 +15,13 @@ from memobase.core.models import MemoryUnit, SymbolType
 class PatternDetector:
     """Detects design patterns, code smells, and architectural patterns."""
     
-    def __init__(self) -> None:
-        """Initialize pattern detector."""
+    def __init__(self, config=None) -> None:
+        """Initialize pattern detector.
+        
+        Args:
+            config: Optional project configuration
+        """
+        self.config = config
         self.design_patterns = self._init_design_patterns()
         self.code_smells = self._init_code_smells()
         self.architectural_patterns = self._init_architectural_patterns()
