@@ -50,9 +50,6 @@ class ProjectBuilder:
         """
         start_time = time.time()
         
-        print("USING FACTORY FROM:", ParserFactory.__module__)
-        print("PARSERS AT USE:", ParserFactory._parsers)
-        
         # Scan files
         scanner = FilesystemScanner(self.config)
         files = list(scanner.scan(self.repo_path))
@@ -67,7 +64,6 @@ class ProjectBuilder:
         
         # Parse files
         parsed_files = self._parse_files(files)
-        print("[DEBUG] Parsed files:", len(parsed_files))
         
         # Build memory units
         memory_units = self._build_memory_units(parsed_files)
@@ -99,24 +95,14 @@ class ProjectBuilder:
         
         with Executor(max_workers=self.config.parallel_workers, use_processes=True) as executor:
             for file_path in files:
-                print("[DEBUG] file:", file_path)
-                
-                print("[DEBUG] raw suffix repr:", repr(file_path.suffix))
-                print("[DEBUG] ext repr:", repr(file_path.suffix))
-                
                 parser = self.parser_factory.get_parser_by_extension(file_path.suffix)
                 
-                print("[DEBUG] parser:", parser)
-                print("[DEBUG] available parsers:", getattr(self.parser_factory, "parsers", {}))
-
                 if parser:
                     try:
                         result = parser.parse(file_path)
-                        print("[DEBUG] parsed result:", bool(result))
                         if result:
                             parsed.append(result)
                     except Exception as e:
-                        print(f"Error parsing {file_path}: {e}")
                         pass  # Skip files that fail to parse
         
         return parsed
@@ -128,8 +114,8 @@ class ProjectBuilder:
         for parsed in parsed_files:
             file_units = self.memory_builder.build(parsed)
             units.extend(file_units)
-            print("[DEBUG] Parsed file:", parsed.path)
-            print("[DEBUG] Symbols:", parsed.symbols)
+            # DEBUG: print("[DEBUG] Parsed file:", parsed.path)
+            # DEBUG: print("[DEBUG] Symbols:", parsed.symbols)
         
         return units
     

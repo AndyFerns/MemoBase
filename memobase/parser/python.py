@@ -20,9 +20,10 @@ class PythonParser(BaseParser):
     def __init__(self) -> None:
         """Initialize Python parser."""
         try:
-            python_language = Language(tree_sitter.language_pointer(), 'python')
+            from memobase.parser.languages import get_language
+            python_language = get_language("python")
             super().__init__(python_language, FileType.PYTHON)
-        except Exception as e:
+        except ImportError as e:
             raise ImportError(f"Failed to load Python tree-sitter language: {e}")
     
     def _extract_symbols(self, tree: tree_sitter.Tree, content: str) -> List[Symbol]:

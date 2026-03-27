@@ -30,7 +30,7 @@ class BaseParser(ParserInterface):
         self.language = language
         self.file_type = file_type
         self.parser = Parser()
-        self.parser.set_language(language)
+        self.parser.language = language
     
     def parse(self, file_path: Path) -> ParsedFile:
         """Parse a file and return ParsedFile."""
