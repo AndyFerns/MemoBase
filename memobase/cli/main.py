@@ -20,17 +20,33 @@ from memobase.cli.commands import (
 )
 from memobase.core.exceptions import MemoBaseError
 
+
+class AppContext:
+    """Global application context for CLI options."""
+    
+    def __init__(self):
+        self.verbose: int = 0
+        self.debug: bool = False
+        self.json: bool = False
+        self.quiet: bool = False
+        self.no_color: bool = False
+        self.config: Optional[Path] = None
+        self.profile: bool = False
+
+
 app = typer.Typer(
     name="memobase",
     help="MemoBase — Memory for your codebase",
     no_args_is_help=True,
     rich_markup_mode="rich",
+    add_completion=False,
 )
 
-# Global options
+# Global options with proper callback
 @app.callback()
 def main(
-    verbose: bool = typer.Option(False, "--verbose", "-v", help="Enable verbose output"),
+    ctx: typer.Context,
+    verbose: int = typer.Option(0, "--verbose", "-v", help="Enable verbose output", count=True),
     quiet: bool = typer.Option(False, "--quiet", "-q", help="Suppress non-error output"),
     json: bool = typer.Option(False, "--json", help="Output in JSON format"),
     no_color: bool = typer.Option(False, "--no-color", help="Disable colored output"),
@@ -39,17 +55,15 @@ def main(
     debug: bool = typer.Option(False, "--debug", help="Enable debug mode"),
 ) -> None:
     """MemoBase — Memory for your codebase."""
-    # Set global configuration based on options
-    import memobase.cli.config as cli_config
-    cli_config.set_global_options({
-        'verbose': verbose,
-        'quiet': quiet,
-        'json': json,
-        'no_color': no_color,
-        'config': config,
-        'profile': profile,
-        'debug': debug,
-    })
+    # Create and set context object
+    ctx.obj = AppContext()
+    ctx.obj.verbose = verbose
+    ctx.obj.debug = debug or verbose >= 3
+    ctx.obj.json = json
+    ctx.obj.quiet = quiet
+    ctx.obj.no_color = no_color
+    ctx.obj.config = config
+    ctx.obj.profile = profile
 
 # Register commands
 app.command(name="init")(init_command)
@@ -64,11 +78,14 @@ app.command(name="doctor")(doctor_command)
 app.command(name="help")(help_command)
 
 # Error handler
-def handle_error(error: Exception) -> None:
+def handle_error(error: Exception, ctx) -> None:
     """Handle CLI errors."""
-    import memobase.cli.config as cli_config
+    # Check if we have debug info
+    debug_enabled = False
+    if ctx and hasattr(ctx, 'obj') and ctx.obj:
+        debug_enabled = ctx.obj.debug
     
-    if cli_config.get_option('debug'):
+    if debug_enabled:
         # Show full traceback in debug mode
         import traceback
         typer.echo(f"Debug: {traceback.format_exc()}", err=True)
@@ -82,11 +99,16 @@ def handle_error(error: Exception) -> None:
 
 # Main entry point
 def cli_entry_point() -> None:
-    """Entry point for the CLI application."""
+    """Entry point for CLI application."""
     try:
         app()
     except Exception as e:
-        handle_error(e)
+        # Try to get context from exception if available
+        ctx = getattr(e, 'ctx', None)
+        if ctx is None:
+            # Fallback - create a minimal context for error handling
+            ctx = type('Context', (), {'debug': False})()
+        handle_error(e, ctx)
 
 if __name__ == "__main__":
     cli_entry_point()

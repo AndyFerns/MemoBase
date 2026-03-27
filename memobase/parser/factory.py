@@ -54,6 +54,9 @@ class ParserFactory:
         if not parser_class:
             raise ParseError(f"No parser available for file type: {file_type}")
         
+        print("FACTORY LOADED FROM:", __file__)
+        print("PARSERS AT LOAD:", ParserFactory._parsers)
+        
         # Create and return parser instance
         try:
             return parser_class()
@@ -140,6 +143,7 @@ class ParserFactory:
         Returns:
             ParserInterface instance or None if not supported
         """
+        print("ID BEFORE:", id(ParserFactory._parsers))
         # Normalize extension
         ext = extension.lower()
         if not ext.startswith('.'):
@@ -155,9 +159,19 @@ class ParserFactory:
         if not parser_class:
             return None
         
+        print("ID OF PARSERS:", id(cls._parsers))
+        print("PARSERS CONTENT:", cls._parsers)
+        
+        print("\nDETECTED FILE TYPE:", file_type, id(file_type))
+        print("FACTORY KEYS:", [(k, id(k)) for k in cls._parsers.keys()])
+        
         try:
             return parser_class()
-        except Exception:
+        except Exception as e:
+            # Stupid a*s tree sitter throws errors when it can't find the right parser
+            # Hours of debugging for this sh*t
+            # Hours wasted: 3h
+            print("PARSER INIT ERROR:", e)
             return None
     
     @staticmethod

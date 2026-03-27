@@ -9,26 +9,56 @@ import typer
 from rich.console import Console
 from rich.progress import Progress, SpinnerColumn, TextColumn
 
-from memobase.cli.config import (
-    get_config_path, 
-    get_default_config, 
-    is_debug, 
-    is_json_output, 
-    is_no_color, 
-    is_profile, 
-    is_quiet, 
-    is_verbose,
-    load_config_file,
-    save_config_file,
-)
 from memobase.core.exceptions import MemoBaseError
 from memobase.core.models import Config
 
 # Initialize console
-console = Console(no_color=is_no_color(), stderr=True)
+console = Console(stderr=True)
+
+
+def get_console(ctx: typer.Context) -> Console:
+    """Get console instance with proper color settings."""
+    no_color = ctx.obj.no_color if ctx and ctx.obj else False
+    return Console(no_color=no_color, stderr=True)
+
+
+def is_debug(ctx: typer.Context) -> bool:
+    """Check if debug mode is enabled."""
+    return ctx.obj.debug if ctx and ctx.obj else False
+
+
+def is_verbose(ctx: typer.Context) -> bool:
+    """Check if verbose mode is enabled."""
+    return ctx.obj.verbose > 0 if ctx and ctx.obj else False
+
+
+def get_verbosity_level(ctx: typer.Context) -> int:
+    """Get verbosity level."""
+    return ctx.obj.verbose if ctx and ctx.obj else 0
+
+
+def is_json_output(ctx: typer.Context) -> bool:
+    """Check if JSON output is enabled."""
+    return ctx.obj.json if ctx and ctx.obj else False
+
+
+def is_quiet(ctx: typer.Context) -> bool:
+    """Check if quiet mode is enabled."""
+    return ctx.obj.quiet if ctx and ctx.obj else False
+
+
+def is_profile(ctx: typer.Context) -> bool:
+    """Check if profiling is enabled."""
+    return ctx.obj.profile if ctx and ctx.obj else False
+
+
+def get_config_path(ctx: typer.Context) -> Optional[Path]:
+    """Get configuration file path."""
+    return ctx.obj.config if ctx and ctx.obj else None
 
 
 def init_command(
+    ctx: typer.Context,
     repo_path: Path = typer.Argument(".", help="Path to repository to initialize"),
     force: bool = typer.Option(False, "--force", "-f", help="Force initialization even if directory exists"),
 ) -> None:
@@ -36,35 +66,25 @@ def init_command(
     try:
         from memobase.infrastructure.setup import ProjectSetup
         
-        if not is_quiet():
-            console.print(f"[bold blue]Initializing MemoBase in[/bold blue] [green]{repo_path}[/green]")
+        console = get_console(ctx)
         
-        # Load or create config
-        config_path = get_config_path()
-        if config_path and config_path.exists():
-            config = load_config_file(config_path)
-        else:
-            config = get_default_config()
+        if is_verbose(ctx):
+            console.print(f"[dim]Initializing MemoBase in {repo_path}[/dim]")
         
-        config['repo_path'] = str(repo_path.absolute())
+        setup = ProjectSetup(repo_path)
+        setup.init_repo(force=force)
         
-        # Setup project
-        setup = ProjectSetup(config)
-        setup.initialize_repo(force)
+        console.print(f"✅ MemoBase initialized successfully")
+        console.print(f"Storage directory: {setup.storage_dir}")
         
-        # Save config
-        if config_path:
-            save_config_file(config_path, config)
-        
-        if not is_quiet():
-            console.print("[bold green]✓[/bold green] MemoBase initialized successfully")
-            console.print(f"Storage directory: {setup.storage_path}")
-        
+        if get_verbosity_level(ctx) >= 2:
+            console.print(f"[dim]Config file: {setup.config_path}[/dim]")
+            
     except MemoBaseError as e:
         console.print(f"[bold red]Error:[/bold red] {e}")
         raise typer.Exit(1)
     except Exception as e:
-        if is_debug():
+        if is_debug(ctx):
             console.print_exception()
         else:
             console.print(f"[bold red]Unexpected error:[/bold red] {e}")
@@ -72,6 +92,7 @@ def init_command(
 
 
 def build_command(
+    ctx: typer.Context,
     repo_path: Path = typer.Argument(".", help="Path to repository"),
     parallel: Optional[int] = typer.Option(None, "--parallel", "-p", help="Number of parallel workers"),
     force: bool = typer.Option(False, "--force", "-f", help="Force rebuild"),
@@ -80,11 +101,13 @@ def build_command(
     try:
         from memobase.infrastructure.builder import ProjectBuilder
         
-        if not is_quiet():
+        console = get_console(ctx)
+        
+        if not is_quiet(ctx):
             console.print(f"[bold blue]Building memory index for[/bold blue] [green]{repo_path}[/green]")
         
         # Load config
-        config = load_project_config(repo_path)
+        config = load_project_config(ctx, repo_path)
         if parallel:
             config.parallel_workers = parallel
         
@@ -95,7 +118,7 @@ def build_command(
             SpinnerColumn(),
             TextColumn("[progress.description]{task.description}"),
             console=console,
-            disable=is_quiet(),
+            disable=is_quiet(ctx),
         ) as progress:
             task = progress.add_task("Building memory...", total=None)
             
@@ -103,7 +126,7 @@ def build_command(
             
             progress.update(task, description="Build complete")
         
-        if not is_quiet():
+        if not is_quiet(ctx):
             console.print("[bold green]✓[/bold green] Build completed successfully")
             console.print(f"Files processed: {stats['files_processed']}")
             console.print(f"Memory units: {stats['memory_units']}")
@@ -114,7 +137,7 @@ def build_command(
         console.print(f"[bold red]Error:[/bold red] {e}")
         raise typer.Exit(1)
     except Exception as e:
-        if is_debug():
+        if is_debug(ctx):
             console.print_exception()
         else:
             console.print(f"[bold red]Unexpected error:[/bold red] {e}")
@@ -122,6 +145,7 @@ def build_command(
 
 
 def ask_command(
+    ctx: typer.Context,
     question: str = typer.Argument(..., help="Question to ask about your codebase"),
     repo_path: Path = typer.Option(".", "--repo", "-r", help="Repository path"),
     limit: int = typer.Option(10, "--limit", "-l", help="Maximum number of results"),
@@ -132,13 +156,15 @@ def ask_command(
         from memobase.infrastructure.query_engine import QueryEngine
         from memobase.query.formatter import ResponseFormatter
         
+        console = get_console(ctx)
+        
         # Load config
-        config = load_project_config(repo_path)
+        config = load_project_config(ctx, repo_path)
         
         # Initialize query engine
         engine = QueryEngine(config)
         
-        if not is_quiet():
+        if not is_quiet(ctx):
             console.print(f"[bold blue]Query:[/bold blue] {question}")
         
         # Execute query
@@ -146,7 +172,7 @@ def ask_command(
             SpinnerColumn(),
             TextColumn("[progress.description]{task.description}"),
             console=console,
-            disable=is_quiet(),
+            disable=is_quiet(ctx),
         ) as progress:
             task = progress.add_task("Searching...", total=None)
             
@@ -156,7 +182,7 @@ def ask_command(
         
         # Format and display results
         formatter = ResponseFormatter()
-        output_format = 'json' if json_output or is_json_output() else 'text'
+        output_format = 'json' if json_output or is_json_output(ctx) else 'text'
         formatted_response = formatter.format_response(response, output_format)
         
         console.print(formatted_response)
@@ -165,7 +191,7 @@ def ask_command(
         console.print(f"[bold red]Error:[/bold red] {e}")
         raise typer.Exit(1)
     except Exception as e:
-        if is_debug():
+        if is_debug(ctx):
             console.print_exception()
         else:
             console.print(f"[bold red]Unexpected error:[/bold red] {e}")
@@ -173,6 +199,7 @@ def ask_command(
 
 
 def query_command(
+    ctx: typer.Context,
     query_text: str = typer.Argument(..., help="Query string"),
     repo_path: Path = typer.Option(".", "--repo", "-r", help="Repository path"),
     limit: int = typer.Option(10, "--limit", "-l", help="Maximum number of results"),
@@ -185,8 +212,10 @@ def query_command(
         from memobase.infrastructure.query_engine import QueryEngine
         from memobase.query.formatter import ResponseFormatter
         
+        console = get_console(ctx)
+        
         # Load config
-        config = load_project_config(repo_path)
+        config = load_project_config(ctx, repo_path)
         
         # Parse filters
         query_filters = {}
@@ -199,7 +228,7 @@ def query_command(
         # Initialize query engine
         engine = QueryEngine(config)
         
-        if not is_quiet():
+        if not is_quiet(ctx):
             console.print(f"[bold blue]Query:[/bold blue] {query_text}")
         
         # Execute query
@@ -207,7 +236,7 @@ def query_command(
             SpinnerColumn(),
             TextColumn("[progress.description]{task.description}"),
             console=console,
-            disable=is_quiet(),
+            disable=is_quiet(ctx),
         ) as progress:
             task = progress.add_task("Searching...", total=None)
             
@@ -217,7 +246,7 @@ def query_command(
         
         # Format and display results
         formatter = ResponseFormatter()
-        output_format = 'json' if json_output or is_json_output() else 'text'
+        output_format = 'json' if json_output or is_json_output(ctx) else 'text'
         formatted_response = formatter.format_response(response, output_format)
         
         console.print(formatted_response)
@@ -226,7 +255,7 @@ def query_command(
         console.print(f"[bold red]Error:[/bold red] {e}")
         raise typer.Exit(1)
     except Exception as e:
-        if is_debug():
+        if is_debug(ctx):
             console.print_exception()
         else:
             console.print(f"[bold red]Unexpected error:[/bold red] {e}")
@@ -234,6 +263,7 @@ def query_command(
 
 
 def graph_command(
+    ctx: typer.Context,
     repo_path: Path = typer.Option(".", "--repo", "-r", help="Repository path"),
     symbol: Optional[str] = typer.Option(None, "--symbol", "-s", help="Symbol to analyze"),
     depth: int = typer.Option(3, "--depth", "-d", help="Graph traversal depth"),
@@ -245,12 +275,12 @@ def graph_command(
         from memobase.infrastructure.graph_analyzer import GraphAnalyzer
         
         # Load config
-        config = load_project_config(repo_path)
+        config = load_project_config(ctx, repo_path)
         
         # Initialize graph analyzer
         analyzer = GraphAnalyzer(config)
         
-        if not is_quiet():
+        if not is_quiet(ctx):
             console.print("[bold blue]Analyzing code relationships...[/bold blue]")
         
         # Analyze graph
@@ -258,7 +288,7 @@ def graph_command(
             SpinnerColumn(),
             TextColumn("[progress.description]{task.description}"),
             console=console,
-            disable=is_quiet(),
+            disable=is_quiet(ctx),
         ) as progress:
             task = progress.add_task("Analyzing graph...", total=None)
             
@@ -280,7 +310,7 @@ def graph_command(
                 else:
                     f.write(graph_data['text_output'])
             
-            if not is_quiet():
+            if not is_quiet(ctx):
                 console.print(f"[bold green]✓[/bold green] Graph analysis saved to {output}")
         else:
             if format_type == 'json':
@@ -301,6 +331,7 @@ def graph_command(
 
 
 def analyze_command(
+    ctx: typer.Context,
     repo_path: Path = typer.Option(".", "--repo", "-r", help="Repository path"),
     analysis_type: str = typer.Option("all", "--type", "-t", help="Analysis type (all, security, quality, performance)"),
     output: Optional[Path] = typer.Option(None, "--output", "-o", help="Output file for analysis"),
@@ -311,12 +342,12 @@ def analyze_command(
         from memobase.infrastructure.code_analyzer import CodeAnalyzer
         
         # Load config
-        config = load_project_config(repo_path)
+        config = load_project_config(ctx, repo_path)
         
         # Initialize analyzer
         analyzer = CodeAnalyzer(config)
         
-        if not is_quiet():
+        if not is_quiet(ctx):
             console.print(f"[bold blue]Running {analysis_type} analysis...[/bold blue]")
         
         # Run analysis
@@ -324,7 +355,7 @@ def analyze_command(
             SpinnerColumn(),
             TextColumn("[progress.description]{task.description}"),
             console=console,
-            disable=is_quiet(),
+            disable=is_quiet(ctx),
         ) as progress:
             task = progress.add_task("Analyzing code...", total=None)
             
@@ -343,13 +374,13 @@ def analyze_command(
             with open(output, 'w') as f:
                 f.write(output_text)
             
-            if not is_quiet():
+            if not is_quiet(ctx):
                 console.print(f"[bold green]✓[/bold green] Analysis saved to {output}")
         else:
             console.print(output_text)
         
         # Summary
-        if not is_quiet():
+        if not is_quiet(ctx):
             console.print(f"\n[bold]Summary:[/bold]")
             console.print(f"Total findings: {len(findings)}")
             severity_counts = {}
@@ -373,6 +404,7 @@ def analyze_command(
 
 
 def update_command(
+    ctx: typer.Context,
     repo_path: Path = typer.Option(".", "--repo", "-r", help="Repository path"),
     force: bool = typer.Option(False, "--force", "-f", help="Force full rebuild"),
 ) -> None:
@@ -381,12 +413,12 @@ def update_command(
         from memobase.infrastructure.updater import ProjectUpdater
         
         # Load config
-        config = load_project_config(repo_path)
+        config = load_project_config(ctx, repo_path)
         
         # Initialize updater
         updater = ProjectUpdater(config)
         
-        if not is_quiet():
+        if not is_quiet(ctx):
             console.print(f"[bold blue]Updating memory index for[/bold blue] [green]{repo_path}[/green]")
         
         # Update
@@ -394,7 +426,7 @@ def update_command(
             SpinnerColumn(),
             TextColumn("[progress.description]{task.description}"),
             console=console,
-            disable=is_quiet(),
+            disable=is_quiet(ctx),
         ) as progress:
             task = progress.add_task("Detecting changes...", total=None)
             
@@ -402,7 +434,7 @@ def update_command(
             
             progress.update(task, description="Update complete")
         
-        if not is_quiet():
+        if not is_quiet(ctx):
             console.print("[bold green]✓[/bold green] Update completed successfully")
             console.print(f"Files added: {stats['files_added']}")
             console.print(f"Files modified: {stats['files_modified']}")
@@ -421,6 +453,7 @@ def update_command(
 
 
 def tui_command(
+    ctx: typer.Context,
     repo_path: Path = typer.Option(".", "--repo", "-r", help="Repository path"),
 ) -> None:
     """Launch the Terminal User Interface."""
@@ -428,7 +461,7 @@ def tui_command(
         from memobase.tui.app import MemoBaseTUI
         
         # Load config
-        config = load_project_config(repo_path)
+        config = load_project_config(ctx, repo_path)
         
         # Launch TUI
         tui_app = MemoBaseTUI(config)
@@ -438,7 +471,7 @@ def tui_command(
         console.print(f"[bold red]Error:[/bold red] {e}")
         raise typer.Exit(1)
     except Exception as e:
-        if is_debug():
+        if is_debug(ctx):
             console.print_exception()
         else:
             console.print(f"[bold red]Unexpected error:[/bold red] {e}")
@@ -446,6 +479,7 @@ def tui_command(
 
 
 def doctor_command(
+    ctx: typer.Context,
     repo_path: Path = typer.Option(".", "--repo", "-r", help="Repository path"),
     fix: bool = typer.Option(False, "--fix", "-f", help="Attempt to fix issues"),
 ) -> None:
@@ -453,13 +487,15 @@ def doctor_command(
     try:
         from memobase.infrastructure.doctor import SystemDoctor
         
+        console = get_console(ctx)
+        
         # Load config
-        config = load_project_config(repo_path)
+        config = load_project_config(ctx, repo_path)
         
         # Initialize doctor
         doctor = SystemDoctor(config)
         
-        if not is_quiet():
+        if not is_quiet(ctx):
             console.print("[bold blue]Running system diagnostics...[/bold blue]")
         
         # Run diagnostics
@@ -467,7 +503,7 @@ def doctor_command(
             SpinnerColumn(),
             TextColumn("[progress.description]{task.description}"),
             console=console,
-            disable=is_quiet(),
+            disable=is_quiet(ctx),
         ) as progress:
             task = progress.add_task("Diagnosing...", total=None)
             
@@ -480,19 +516,19 @@ def doctor_command(
         
         # Fix issues if requested
         if fix and health_report['issues']:
-            if not is_quiet():
+            if not is_quiet(ctx):
                 console.print("\n[bold yellow]Attempting to fix issues...[/bold yellow]")
             
             fixed_issues = doctor.fix_issues(health_report['issues'])
             
-            if not is_quiet():
+            if not is_quiet(ctx):
                 console.print(f"[bold green]✓[/bold green] Fixed {len(fixed_issues)} issues")
         
     except MemoBaseError as e:
         console.print(f"[bold red]Error:[/bold red] {e}")
         raise typer.Exit(1)
     except Exception as e:
-        if is_debug():
+        if is_debug(ctx):
             console.print_exception()
         else:
             console.print(f"[bold red]Unexpected error:[/bold red] {e}")
@@ -535,13 +571,47 @@ def help_command(
         """)
 
 
+def get_default_config() -> dict:
+    """Get default configuration."""
+    return {
+        'repo_path': '.',
+        'max_file_size_mb': 10,
+        'excluded_patterns': [
+            '*.pyc', '*.pyo', '*.pyd', '__pycache__', '.git', '.svn', '.hg',
+            'node_modules', '.vscode', '.idea', '*.log', '*.tmp'
+        ],
+        'included_extensions': [
+            '.py', '.js', '.jsx', '.ts', '.tsx', '.java', '.c', '.cpp', '.cc',
+            '.cxx', '.rs', '.go', '.rb', '.php', '.h', '.hpp', '.hxx'
+        ],
+        'parallel_workers': 4,
+        'index_batch_size': 1000,
+        'graph_max_depth': 5,
+        'cache_size_mb': 100,
+        'storage_backend': 'file',
+        'storage_path': '.memobase',
+    }
+
+
+def load_config_file(config_path: Path) -> dict:
+    """Load configuration from file."""
+    try:
+        import json
+        with open(config_path, 'r') as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return {}
+    except json.JSONDecodeError as e:
+        raise ValueError(f"Invalid JSON in config file {config_path}: {e}")
+
+
 # Helper functions
-def load_project_config(repo_path: Path) -> Config:
+def load_project_config(ctx: typer.Context, repo_path: Path) -> Config:
     """Load project configuration."""
     from memobase.core.models import Config
     
     # Load base config
-    config_path = get_config_path()
+    config_path = get_config_path(ctx)
     if config_path and config_path.exists():
         config_data = load_config_file(config_path)
     else:
