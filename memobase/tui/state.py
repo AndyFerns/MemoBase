@@ -17,6 +17,9 @@ from memobase.core.models import Findings, Graph, Index, MemoryUnit, Response
 class TUIState:
     """Global state for TUI - SINGLE SOURCE OF TRUTH."""
     
+    # Context for reactive system
+    _context: Optional[Any] = field(default=None, init=False)
+    
     # Navigation state
     current_file: Optional[str] = None
     current_mode: str = "memory"  # memory, graph, analysis, query

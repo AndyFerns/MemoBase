@@ -8,6 +8,7 @@ NEVER: preload entire repo
 from textual.reactive import reactive
 from textual.widgets import Tree
 from textual.widgets.tree import TreeNode
+from textual.widget import Widget
 
 from memobase.tui.controller import TUIController
 from memobase.tui.state import TUIState
