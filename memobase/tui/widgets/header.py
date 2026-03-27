@@ -6,6 +6,7 @@ Displays: project name, stats (file count, etc.)
 
 from textual.reactive import reactive
 from textual.widget import Widget
+from textual.widgets import Static
 
 from memobase.tui.state import TUIState
 

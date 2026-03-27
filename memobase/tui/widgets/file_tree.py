@@ -19,20 +19,21 @@ class FileTree(Tree):
     
     DEFAULT_CSS = """
     FileTree {
-        width: 100%;
-        height: 100%;
+        background: $surface;
         border: solid $primary;
-        background: $surface-darken-1;
+        padding: 0;
     }
     
-    FileTree .tree--cursor {
-        background: $primary-darken-2;
+    FileTree > .tree-node {
+        padding: 0 1;
     }
     
-    FileTree .tree--highlight {
-        background: $primary-darken-1;
+    FileTree > .tree-node--cursor {
+        background: $primary;
     }
     """
+    
+    file_tree_data: reactive[list] = reactive([])
     
     def __init__(self, state: TUIState, controller: TUIController, **kwargs) -> None:
         """Initialize file tree.
@@ -48,11 +49,14 @@ class FileTree(Tree):
     
     def on_mount(self) -> None:
         """Called when widget is mounted."""
-        # Load root level only
+        # Load initial data
         self._load_root()
         
-        # Watch for file tree data changes
-        self.watch(self.state, "file_tree_data", self._on_file_tree_changed)
+        # Set initial data from state
+        self.file_tree_data = self.state.file_tree_data
+        
+        # Watch our own reactive property
+        self.watch(self, "file_tree_data", self._on_file_tree_changed)
     
     def _load_root(self) -> None:
         """Load root level directories."""
@@ -92,15 +96,15 @@ class FileTree(Tree):
         for file_item in sorted(files, key=lambda x: x["name"]):
             self.root.add(f"📄 {file_item['name']}", data={"type": "file", "path": file_item["path"]})
     
-    def _on_file_tree_changed(self) -> None:
+    def _on_file_tree_changed(self, old_value: list = None, new_value: list = None) -> None:
         """Handle file tree data changes."""
         self._load_root()
     
-    def on_tree_node_expanded(self, event: Tree.NodeExpanded) -> None:
+    def on_tree_node_expanded(self, event) -> None:
         """Handle node expansion - lazy load children."""
-        node = event.node
+        node = event.node if hasattr(event, 'node') else None
         
-        if node.data.get("type") == "directory":
+        if node and node.data and node.data.get("type") == "directory":
             # Lazy load directory contents
             self._load_directory(node)
     
@@ -126,11 +130,11 @@ class FileTree(Tree):
         for file_item in sorted(files, key=lambda x: x["name"]):
             node.add(f"📄 {file_item['name']}", data={"type": "file", "path": file_item["path"]})
     
-    def on_tree_node_selected(self, event: Tree.NodeSelected) -> None:
+    def on_tree_node_selected(self, event) -> None:
         """Handle node selection."""
-        node = event.node
+        node = event.node if hasattr(event, 'node') else None
         
-        if node.data.get("type") == "file":
+        if node and node.data and node.data.get("type") == "file":
             file_path = node.data.get("path")
             if file_path:
                 # Update state
@@ -147,7 +151,11 @@ class FileTree(Tree):
         if event.key == "enter":
             # Select current node
             if self.cursor_node:
-                self.on_tree_node_selected(type("Event", (), {"node": self.cursor_node})())
+                # Create a simple event object
+                class SimpleEvent:
+                    def __init__(self, node):
+                        self.node = node
+                self.on_tree_node_selected(SimpleEvent(self.cursor_node))
         elif event.key == "space":
             # Toggle expansion
             if self.cursor_node:

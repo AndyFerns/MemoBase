@@ -18,26 +18,30 @@ class CommandBar(Widget):
     
     DEFAULT_CSS = """
     CommandBar {
-        height: 1;
-        dock: bottom;
-        background: $surface-darken-1;
-    }
-    
-    CommandBar #prompt {
-        width: auto;
-        color: $primary;
-        text-style: bold;
-    }
-    
-    CommandBar Input {
-        width: 1fr;
         background: $surface;
+        border: solid $primary;
+        padding: 0 1;
+        height: 1;
     }
     
     CommandBar.hidden {
         display: none;
     }
+    
+    #prompt {
+        width: 1;
+        text-align: right;
+        margin-right: 1;
+    }
+    
+    #command-input {
+        width: 1fr;
+    }
     """
+    
+    # Reactive properties
+    command_mode: reactive[bool] = reactive(False)
+    query_mode: reactive[bool] = reactive(False)
     
     def __init__(self, state: TUIState, actions: Actions, **kwargs) -> None:
         """Initialize command bar.
@@ -59,25 +63,29 @@ class CommandBar(Widget):
     
     def on_mount(self) -> None:
         """Called when widget is mounted."""
-        # Watch for state changes
-        self.watch(self.state, "command_mode", self._on_command_mode_changed)
-        self.watch(self.state, "query_mode", self._on_query_mode_changed)
+        # Initialize from state
+        self.command_mode = self.state.command_mode
+        self.query_mode = self.state.query_mode
+        
+        # Watch our own reactive properties
+        self.watch(self, "command_mode", self._on_command_mode_changed)
+        self.watch(self, "query_mode", self._on_query_mode_changed)
         
         # Hide initially
         self.add_class("hidden")
     
-    def _on_command_mode_changed(self) -> None:
+    def _on_command_mode_changed(self, old_value: bool = None, new_value: bool = None) -> None:
         """Handle command mode change."""
-        if self.state.command_mode:
+        if self.command_mode:
             self._show_command_mode()
-        elif not self.state.query_mode:
+        elif not self.query_mode:
             self._hide()
     
-    def _on_query_mode_changed(self) -> None:
+    def _on_query_mode_changed(self, old_value: bool = None, new_value: bool = None) -> None:
         """Handle query mode change."""
-        if self.state.query_mode:
+        if self.query_mode:
             self._show_query_mode()
-        elif not self.state.command_mode:
+        elif not self.command_mode:
             self._hide()
     
     def _show_command_mode(self) -> None:
