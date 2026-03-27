@@ -151,11 +151,28 @@ class TextEmbedder(EmbeddingInterface):
         if token in self.idf_cache:
             return self.idf_cache[token]
         
+        # Guard: empty token
+        if not token or token.strip() == "":
+            return 0.0
+        
         # Simple heuristic: longer and less common characters get higher IDF
         char_frequency = self._estimate_char_frequency(token)
-        length_factor = min(2.0, len(token) / 3.0)
         
-        idf = 1.0 + math.log(length_factor / (1.0 + char_frequency))
+        # Clamp to safe range (IMPORTANT)
+        char_frequency = max(-0.99, char_frequency)  # prevents denominator = 0
+        
+        length_factor = min(2.0, len(token) / 3.0)
+        denominator = 1.0 + char_frequency
+        
+        # Extra safety (paranoid guard)
+        if denominator <= 0:
+            denominator = 1e-6
+        
+        try:
+            idf = 1.0 + math.log(length_factor / denominator)
+        except (ValueError, ZeroDivisionError):
+            idf = 0.0
+        
         self.idf_cache[token] = idf
         
         return idf
