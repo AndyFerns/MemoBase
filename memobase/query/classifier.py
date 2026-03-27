@@ -80,6 +80,10 @@ class IntentClassifier:
         except Exception as e:
             raise QueryError(f"Intent confidence calculation failed: {str(e)}")
     
+    def classify(self, query_text: str, context: Dict = None) -> QueryType:
+        """Classify query intent (convenience alias for classify_intent)."""
+        return self.classify_intent(query_text, context)
+    
     def classify_batch(self, queries: List[str], context: Dict = None) -> List[QueryType]:
         """Classify multiple queries.
         

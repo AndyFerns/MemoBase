@@ -83,7 +83,11 @@ class IndexSearcher:
                 # Get unit IDs for similar terms
                 for similar_term in similar_terms:
                     if similar_term in index.term_index:
-                        results.extend(index.term_index[similar_term])
+                        unit_ids = index.term_index[similar_term]
+                        if isinstance(unit_ids, (list, set)):
+                            results.extend(unit_ids)
+                        else:
+                            results.append(unit_ids)
             
             # Remove duplicates and count occurrences
             result_counts = {}
@@ -235,13 +239,22 @@ class IndexSearcher:
             file_pattern = filters['file_path'].lower()
             for file_path, unit_ids in index.file_index.items():
                 if file_pattern in file_path.lower():
-                    filtered_units.update(unit_ids)
+                    # Handle both set and list
+                    if isinstance(unit_ids, (list, set)):
+                        filtered_units.update(unit_ids)
+                    else:
+                        filtered_units.add(unit_ids)
         
         # Symbol type filter
         if 'symbol_type' in filters:
             symbol_type = filters['symbol_type']
             if symbol_type in index.symbol_index:
-                filtered_units.update(index.symbol_index[symbol_type])
+                unit_ids = index.symbol_index[symbol_type]
+                # Handle both set and list
+                if isinstance(unit_ids, (list, set)):
+                    filtered_units.update(unit_ids)
+                else:
+                    filtered_units.add(unit_ids)
         
         # If no filters applied, return None (no filtering)
         if not filtered_units:
@@ -257,7 +270,13 @@ class IndexSearcher:
         for term in query_terms:
             processed_term = self._process_term(term)
             if processed_term in index.term_index:
-                for unit_id in index.term_index[processed_term]:
+                # Handle both set and list (JSON deserialization converts sets to lists)
+                unit_ids = index.term_index[processed_term]
+                if isinstance(unit_ids, int):
+                    unit_ids = [unit_ids]
+                elif not isinstance(unit_ids, (list, set)):
+                    unit_ids = [unit_ids]
+                for unit_id in unit_ids:
                     if filtered_units is None or unit_id in filtered_units:
                         scores[unit_id] = scores.get(unit_id, 0) + 1
         
@@ -273,11 +292,19 @@ class IndexSearcher:
         
         # Check symbol index for exact matches
         if query_text in index.symbol_index:
-            results.update(index.symbol_index[query_text])
+            unit_ids = index.symbol_index[query_text]
+            if isinstance(unit_ids, (list, set)):
+                results.update(unit_ids)
+            else:
+                results.add(unit_ids)
         
         # Check term index for exact matches
         if query_text in index.term_index:
-            results.update(index.term_index[query_text])
+            unit_ids = index.term_index[query_text]
+            if isinstance(unit_ids, (list, set)):
+                results.update(unit_ids)
+            else:
+                results.add(unit_ids)
         
         # Apply filters if needed
         if filtered_units:

@@ -18,13 +18,13 @@ from memobase.core.models import Config
 class ChangeDetector(IncrementalInterface):
     """Detects file changes using SHA256 hashing."""
     
-    def __init__(self, scanner: ScannerInterface) -> None:
+    def __init__(self, config: Config) -> None:
         """Initialize change detector.
         
         Args:
-            scanner: File system scanner
+            config: Project configuration
         """
-        self.scanner = scanner
+        self.config = config
         self.file_hashes: Dict[str, str] = {}
         self.last_scan_time = None
     
@@ -32,7 +32,9 @@ class ChangeDetector(IncrementalInterface):
         """Detect file changes in repository."""
         try:
             # Scan current files
-            current_files = set(self.scanner.scan(repo_path, self._create_config()))
+            from memobase.infrastructure.filesystem.scanner import FilesystemScanner
+            scanner = FilesystemScanner(self.config)
+            current_files = set(scanner.scan(repo_path))
             current_hashes = {}
             
             # Calculate current hashes

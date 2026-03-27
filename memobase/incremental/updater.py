@@ -5,6 +5,7 @@ Incremental updater implementation.
 from __future__ import annotations
 
 import asyncio
+import time
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 from typing import Dict, List, Set, Tuple
@@ -17,15 +18,15 @@ from memobase.core.models import Graph, Index, MemoryUnit, Relationship
 class IncrementalUpdater(IncrementalInterface):
     """Handles incremental updates to index and graph."""
     
-    def __init__(self, parser: ParserInterface, memory_builder: MemoryBuilderInterface) -> None:
+    def __init__(self, config, storage) -> None:
         """Initialize incremental updater.
         
         Args:
-            parser: Code parser
-            memory_builder: Memory unit builder
+            config: Project configuration
+            storage: Storage interface
         """
-        self.parser = parser
-        self.memory_builder = memory_builder
+        self.config = config
+        self.storage = storage
         self.update_history = []
     
     def detect_changes(self, repo_path: Path) -> Tuple[List[Path], List[Path], List[Path]]:
@@ -33,6 +34,19 @@ class IncrementalUpdater(IncrementalInterface):
         # This would delegate to a ChangeDetector
         # For now, return empty changes
         return [], [], []
+    
+    def process_changes(self, added: List[Path], modified: List[Path], deleted: List[Path]) -> None:
+        """Process file changes."""
+        try:
+            # For now, just log the changes
+            self.update_history.append({
+                'timestamp': time.time(),
+                'added': [str(p) for p in added],
+                'modified': [str(p) for p in modified],
+                'deleted': [str(p) for p in deleted],
+            })
+        except Exception as e:
+            raise QueryError(f"Change processing failed: {str(e)}")
     
     def calculate_file_hash(self, file_path: Path) -> str:
         """Calculate SHA256 hash of file."""

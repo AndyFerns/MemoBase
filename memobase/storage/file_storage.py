@@ -76,6 +76,10 @@ class FileStorage(StorageInterface):
         except Exception as e:
             raise StorageError(f"Failed to retrieve data for key '{key}': {str(e)}")
     
+    def load(self, key: str) -> Any:
+        """Alias for retrieve method."""
+        return self.retrieve(key)
+    
     def delete(self, key: str) -> bool:
         """Delete data by key."""
         try:

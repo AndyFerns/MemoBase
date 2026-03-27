@@ -19,8 +19,9 @@ from memobase.core.models import Graph, Index, MemoryUnit, Query, QueryType, Res
 class QueryProcessor(QueryInterface):
     """Main query processor with intent classification and retrieval."""
     
-    def __init__(self) -> None:
+    def __init__(self, config=None) -> None:
         """Initialize query processor."""
+        self.config = config
         self.query_history = []
         self.performance_stats = {
             'total_queries': 0,

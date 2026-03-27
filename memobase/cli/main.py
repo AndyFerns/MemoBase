@@ -52,16 +52,16 @@ def main(
     })
 
 # Register commands
-app.command()(init_command.init)
-app.command()(build_command.build)
-app.command()(ask_command.ask)
-app.command()(query_command.query)
-app.command()(graph_command.graph)
-app.command()(analyze_command.analyze)
-app.command()(update_command.update)
-app.command()(tui_command.tui)
-app.command()(doctor_command.doctor)
-app.command()(help_command.help)
+app.command(name="init")(init_command)
+app.command(name="build")(build_command)
+app.command(name="ask")(ask_command)
+app.command(name="query")(query_command)
+app.command(name="graph")(graph_command)
+app.command(name="analyze")(analyze_command)
+app.command(name="update")(update_command)
+app.command(name="tui")(tui_command)
+app.command(name="doctor")(doctor_command)
+app.command(name="help")(help_command)
 
 # Error handler
 def handle_error(error: Exception) -> None:

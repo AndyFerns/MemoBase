@@ -3,7 +3,7 @@ Parser factory for creating language-specific parsers.
 """
 
 from pathlib import Path
-from typing import Dict, Type
+from typing import Dict, List, Optional, Type
 
 from memobase.core.exceptions import ParseError
 from memobase.core.interfaces import ParserInterface
@@ -129,6 +129,58 @@ class ParserFactory:
             parser_class: Parser class to register
         """
         cls._parsers[file_type] = parser_class
+    
+    @classmethod
+    def get_parser_by_extension(cls, extension: str) -> Optional[ParserInterface]:
+        """Get parser by file extension.
+        
+        Args:
+            extension: File extension (e.g., '.py', '.js')
+            
+        Returns:
+            ParserInterface instance or None if not supported
+        """
+        # Normalize extension
+        ext = extension.lower()
+        if not ext.startswith('.'):
+            ext = '.' + ext
+        
+        # Detect file type from extension
+        file_type = cls._detect_file_type_from_ext(ext)
+        
+        if file_type == FileType.UNKNOWN:
+            return None
+        
+        parser_class = cls._parsers.get(file_type)
+        if not parser_class:
+            return None
+        
+        try:
+            return parser_class()
+        except Exception:
+            return None
+    
+    @staticmethod
+    def _detect_file_type_from_ext(ext: str) -> FileType:
+        """Detect file type from extension string."""
+        extension_map = {
+            ".py": FileType.PYTHON,
+            ".pyi": FileType.PYTHON,
+            ".js": FileType.JAVASCRIPT,
+            ".jsx": FileType.JAVASCRIPT,
+            ".ts": FileType.TYPESCRIPT,
+            ".tsx": FileType.TYPESCRIPT,
+            ".java": FileType.JAVA,
+            ".c": FileType.C,
+            ".cpp": FileType.CPP,
+            ".cc": FileType.CPP,
+            ".cxx": FileType.CPP,
+            ".rs": FileType.RUST,
+            ".go": FileType.GO,
+            ".rb": FileType.RUBY,
+            ".php": FileType.PHP,
+        }
+        return extension_map.get(ext, FileType.UNKNOWN)
     
     @staticmethod
     def _detect_file_type(file_path: Path) -> FileType:

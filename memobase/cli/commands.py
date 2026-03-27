@@ -587,13 +587,15 @@ def display_health_report(report: dict) -> None:
     # Overall status
     status = report['overall_status']
     status_color = 'green' if status == 'healthy' else 'yellow' if status == 'warning' else 'red'
-    console.print(f"Overall Status: {status_color}{status.upper()}[/{status_color}]")
+    console.print(f"Overall Status: [{status_color}]{status.upper()}[/{status_color}]")
     
     # Issues
     if report['issues']:
         console.print(f"\n[bold red]Issues Found ({len(report['issues'])}):[/bold red]")
         for issue in report['issues']:
-            console.print(f"  • {issue}")
+            # Escape any brackets in the issue text
+            safe_issue = issue.replace("[", "\\[").replace("]", "\\]")
+            console.print(f"  • {safe_issue}")
     else:
         console.print("\n[bold green]✓ No issues found[/bold green]")
     
@@ -601,4 +603,6 @@ def display_health_report(report: dict) -> None:
     if report['recommendations']:
         console.print(f"\n[bold blue]Recommendations:[/bold blue]")
         for rec in report['recommendations']:
-            console.print(f"  • {rec}")
+            # Escape any brackets in the recommendation text
+            safe_rec = rec.replace("[", "\\[").replace("]", "\\]")
+            console.print(f"  • {safe_rec}")
