@@ -28,19 +28,26 @@ class VersionedModel:
     
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for JSON serialization."""
-        result = {}
-        for key, value in self.__dict__.items():
-            if isinstance(value, (list, dict, str, int, float, bool, type(None))):
-                result[key] = value
+        
+        def serialize(value):
+            if isinstance(value, dict):
+                return {k: serialize(v) for k, v in value.items()}
+            elif isinstance(value, list):
+                return [serialize(v) for v in value]
+            elif isinstance(value, set):
+                return [serialize(v) for v in value]
             elif isinstance(value, Path):
-                result[key] = str(value)
+                return str(value)
             elif isinstance(value, datetime):
-                result[key] = value.isoformat()
+                return value.isoformat()
             elif isinstance(value, Enum):
-                result[key] = value.value
+                return value.value
+            elif isinstance(value, VersionedModel):
+                return value.to_dict()
             else:
-                result[key] = str(value)
-        return result
+                return value
+
+        return {key: serialize(value) for key, value in self.__dict__.items()}
     
     def to_json(self) -> str:
         """Convert to JSON string."""
