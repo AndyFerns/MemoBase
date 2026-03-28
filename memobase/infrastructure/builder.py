@@ -119,6 +119,7 @@ class ProjectBuilder:
         
         return units
     
+    @staticmethod
     def safe_id(id: str) -> str:
         return id.replace("/", "_").replace("\\", "_").replace(":", "_")
     
