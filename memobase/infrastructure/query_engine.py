@@ -56,8 +56,8 @@ class QueryEngine:
         )
         
         # Load index and graph
-        index_data = self.storage.load("index/main")
-        graph_data = self.storage.load("graph/main")
+        index_data = self.storage.load("index:main")
+        graph_data = self.storage.load("graph:main")
         
         if not index_data:
             return Response(
@@ -100,7 +100,7 @@ class QueryEngine:
         )
         
         # Load index
-        index_data = self.storage.load("index/main")
+        index_data = self.storage.load("index:main")
         
         if not index_data:
             return Response(
@@ -120,7 +120,7 @@ class QueryEngine:
         # Load memory units
         memory_units = []
         for unit_id in results:
-            unit_data = self.storage.load(f"memory/{unit_id}")
+            unit_data = self.storage.load(f"memory:{unit_id}")
             if unit_data:
                 from memobase.core.models import MemoryUnit
                 memory_units.append(MemoryUnit(**unit_data))

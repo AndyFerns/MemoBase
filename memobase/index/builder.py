@@ -130,11 +130,15 @@ class IndexBuilder(IndexInterface):
             file_index[file_key] = set()
         file_index[file_key].add(unit.id)
         
+        print(f"[DEBUG] unit: {unit.id}")
+        print("[DEBUG] FINAL term_index size:", len(term_index))
         # Index keywords
         for keyword in unit.keywords:
             processed_keyword = self._process_term(keyword)
             if processed_keyword and processed_keyword not in self.stop_words:
                 term_index[processed_keyword].add(unit.id)
+                
+        print("[DEBUG] keywords:", unit.keywords)
         
         # Index content terms
         if unit.content:
@@ -142,6 +146,7 @@ class IndexBuilder(IndexInterface):
             for term in content_terms:
                 if term not in self.stop_words:
                     term_index[term].add(unit.id)
+        print("[DEBUG] content:", unit.content[:50] if unit.content else None)
         
         # Index symbol information
         if unit.symbol:
@@ -159,6 +164,9 @@ class IndexBuilder(IndexInterface):
                 param_term = self._process_term(param)
                 if param_term:
                     symbol_index[param_term].add(unit.id)
+                    
+        print("[DEBUG] SAMPLE term_index:", list(term_index.items())[:5])
+        print("[DEBUG] terms extracted:", content_terms[:10])
     
     def _process_query(self, query: str) -> List[str]:
         """Process search query into terms."""

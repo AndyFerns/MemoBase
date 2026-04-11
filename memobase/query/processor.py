@@ -7,6 +7,8 @@ from __future__ import annotations
 import asyncio
 import re
 import time
+import logging
+
 from concurrent.futures import ProcessPoolExecutor
 from datetime import datetime
 from typing import Dict, List, Optional
@@ -208,6 +210,46 @@ class QueryProcessor(QueryInterface):
         loop = asyncio.get_event_loop()
         with ProcessPoolExecutor() as executor:
             return await loop.run_in_executor(executor, self.query, query, index, graph)
+        
+    def _load_memory_unit(self, unit_id: str) -> Optional[MemoryUnit]:
+        """Load memory unit from storage."""
+        try:
+            from memobase.storage.file_storage import FileStorage
+            from memobase.core.models import MemoryUnit
+            from pathlib import Path
+
+            storage = FileStorage(Path(".memobase/data"))
+            data = storage.load(f"memory_unit:{unit_id}")
+
+            if data:
+                return MemoryUnit.from_dict(data)
+
+            return None
+        except Exception:
+            return None
+        
+    def _simple_stem(self, word: str) -> str:
+        suffixes = ['ing', 'ed', 'er', 'est', 'ly', 'tion', 's', 'es']
+
+        for suffix in suffixes:
+            if word.endswith(suffix) and len(word) > len(suffix) + 2:
+                return word[:-len(suffix)]
+
+        return word
+        
+    def _process_term(self, term: str) -> str:
+        """Process a single term."""
+        # Convert to lowercase
+        term = term.lower()
+        
+        # Remove punctuation
+        import re
+        term = re.sub(r'[^\w\s]', '', term)
+        
+        # Normalize (simple stemming)
+        term = self._simple_stem(term)
+        
+        return term
     
     def _execute_search_query(self, query: Query, index: Index, graph: Graph) -> List[MemoryUnit]:
         """Execute search query."""
@@ -218,8 +260,12 @@ class QueryProcessor(QueryInterface):
             # Search term index
             query_terms = query.text.lower().split()
             for term in query_terms:
-                if term in index.term_index:
-                    matching_ids.update(index.term_index[term])
+                processed = self._process_term(term)
+                if processed in index.term_index:
+                    matching_ids.update(index.term_index[processed])
+                    
+                print("[DEBUG QUERY] term:", term, "processed:", processed)
+                print("[DEBUG QUERY] available keys sample:", list(index.term_index.keys())[:10])
             
             # Search symbol index
             for term in query_terms:
@@ -229,9 +275,12 @@ class QueryProcessor(QueryInterface):
             # Get memory units
             results = []
             for unit_id in matching_ids:
-                # In practice, you'd retrieve from storage
-                # For now, create placeholder results
-                pass
+                try:
+                    unit_data = self._load_memory_unit(unit_id)
+                    if unit_data:
+                        results.append(unit_data)
+                except Exception as e:
+                    raise QueryError(f"Failed to load memory unit {unit_id}: {str(e)}")
             
             return results
             
